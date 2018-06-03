@@ -1,3 +1,6 @@
 [submodule "openseadragon"]
 	path = openseadragon
 	url = https://github.com/thejohnhoffer/openseadragon
+[submodule "code2flow"]
+	path = code2flow
+	url = git@github.com:scottrogowski/code2flow.git
