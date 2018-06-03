@@ -23,3 +23,10 @@ cd ../..
 cd openseadragon/build/openseadragon/
 code2flow openseadragon.js -o ../../../openseadragon_build.svg
 ```
+
+Modify either resulting gv file then update the svg
+
+```
+echo "%s/prototype\./this./gc | w" | vim -e openseadragon_src.gv
+dot -Tsvg openseadragon_src.gv > openseadragon_src.svg
+```
