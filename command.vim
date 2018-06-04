@@ -10,8 +10,8 @@ g/node[0-9]*\ze.*(runs on import).*/d
 " Add links between nodes
 fu! AddLink(from_word, to_word)
   " Link from word's node @s to word's node @t
-  execute 'g/.*"' . a:to_word . '"/ normal "tye'
-  execute 'g/.*"' . a:from_word . '"/ normal "fye'
+  execute 'g/.* "' . a:to_word . '"/ normal "tye'
+  execute 'g/.* "' . a:from_word . '"/ normal "fye'
 
   " Add links before first link
   let l:links = 'subgraph clusteropenseadragon.*/'
