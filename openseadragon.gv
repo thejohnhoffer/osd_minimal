@@ -440,8 +440,13 @@ node587 -> node565 [color="blue" penwidth="2"];
 node616 -> node595;
 node614 -> node620;
 node2 -> node167 [color="blue" penwidth="2"];
+node167 -> node610 [color="blue" penwidth="2"];
+node167 -> node310 [color="blue" penwidth="2"];
 node167 -> node395 [color="blue" penwidth="2"];
+node167 -> node509 [color="blue" penwidth="2"];
 node167 -> node227 [color="blue" penwidth="2"];
+node192 -> node52 [color="blue" penwidth="2"];
+node192 -> node250 [color="blue" penwidth="2"];
 subgraph clusteropenseadragon0{
 node2 node6 node8 node10 node12 node18 node21 node23 node26 node2 node6 node8 node10 node12 node18 node21 node23 node26 ;
 label="openseadragon";
