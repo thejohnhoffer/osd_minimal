@@ -26,5 +26,5 @@ Modify either resulting gv file then update the svg
 ```
 cp openseadragon_src.gv openseadragon.gv
 vim -e openseadragon.gv < command.vim
-dot -Tsvg openseadragon.gv > openseadragon.svg
+dot -Gdpi=60 -Tsvg openseadragon.gv > openseadragon.svg
 ```
