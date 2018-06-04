@@ -2,8 +2,10 @@
 %s/prototype\./this./
 %s/;}\(node.*\)/;}\r\1/
 
-" Remove numbers from labels
+" Remove numbers from labels and redundant nodes
 %s/\(.*label.*"\)[0-9]*: \(.*\)/\1\2/
+g/node[0-9]*\ze.*(runs on import).*/ normal *dwd
+g/node[0-9]*\ze.*(runs on import).*/d
 
 " Add links between nodes
 fu! AddLink(from_word, to_word)
@@ -16,15 +18,13 @@ fu! AddLink(from_word, to_word)
   execute '%s/' . l:links . @f . ' -> ' . @t . g:color . ';\r\0/'
 endfu
 
-" Define link colors
-let blue = ' [color="blue" penwidth="2"]'
-let black = ''
-
+"
 " Links for calls that return values
-let g:color = blue
-call AddLink("OpenSeadragon", "Viewer")
+"
+let g:color = ' [color="blue" penwidth="2"]'
 
-" Remove redundant import labeling
-g/node[0-9]*\ze.*(runs on import).*/ normal *dwd
-g/node[0-9]*\ze.*(runs on import).*/d
+call AddLink("OpenSeadragon", "Viewer")
+call AddLink("Viewer", "Viewport")
+call AddLink("Viewer", "World")
+
 w
