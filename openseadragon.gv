@@ -28,11 +28,11 @@ node23 [splines=ortho shape = "rect" style = "rounded" label = "cancelAnimationF
 node26 [splines=ortho shape = "rect" style = "rounded" label = "getOffsetParent" ];
 
 node35 [splines=ortho shape = "rect" style = "rounded" label = "EventSource" ];
-node38 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "eventsource.addHandler" ];
-node40 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "eventsource.removeHandler" ];
-node42 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "eventsource.removeAllHandlers" ];
-node44 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "eventsource.getHandler" ];
-node46 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "eventsource.raiseEvent" ];
+
+
+
+
+
 
 node52 [splines=ortho shape = "rect" style = "rounded" label = "TiledImage" ];
 node55 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tiledimage.needsDraw" ];
@@ -290,7 +290,7 @@ node616 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "whea
 node614 [splines=ortho shape = "rect" style = "rounded" label = "imageloader.addJob.complete" ];
 node618 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "imageloader.clear" ];
 node620 [splines=ortho shape = "rect" style = "rounded" label = "completeJob" ];
-node46 -> node44 [color="blue" penwidth="2"];
+
 node61 -> node111;
 node63 -> node120 [color="blue" penwidth="2"];
 node65 -> node59;
@@ -526,7 +526,7 @@ style=filled;
 color=black;
 graph[style=dotted];
 subgraph clusterprototype36{
-node38 node40 node42 node44 node46 node38 node40 node42 node44 node46 ;
+
 label="prototype";
 style=filled;
 color=black;

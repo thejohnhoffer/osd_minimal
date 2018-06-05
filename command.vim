@@ -11,8 +11,9 @@ fu! RmNode()
   execute '%s/.*' . @a  . '.*//'
 endfu
 
-" Remove import nodes
+" Remove import and eventsource nodes
 g/node[0-9]*.*(runs on import).*/ call RmNode()
+g/node[0-9]*.* "eventsource.*"/ call RmNode()
 
 " Remove rectangle nodes
 %s/.*clusterrectangle\_.\{-}}}};//
