@@ -1,6 +1,8 @@
-" Use shorthand and clean up
-%s/prototype\./this./
+" Clean up and fix settings
 %s/;}\(node.*\)/;}\r\1/
+normal gg
+normal oclusterrank = "global";
+normal omclimit = 1000;
 
 " Remove numbers from labels and redundant nodes
 %s/\(.*label.*"\)[0-9]*: \(.*\)/\1\2/
@@ -30,16 +32,48 @@ call AddLink("Viewer", "Viewport")
 call AddLink("Viewer", "Drawer")
 call AddLink("Viewer", "World")
 
-" From Viewer to Module
-let g:from = "Viewer"
+" From Module to Viewport
+let g:from = "legend"
+let g:to = "Viewport"
 
 let g:color = ' [color="blue" penwidth="2"]'
-call AddLink("this.addTiledImage.processReadyItems", "TiledImage")
+call AddLink("Viewer", ".*\._setContentBounds")
+
+" From Module to world
+let g:from = "legend"
+let g:to = "World"
+
+let g:color = ' [color="blue" penwidth="2"]'
+call AddLink("Viewer", ".*\.getHomeBounds")
+call AddLink("Viewer", ".*\.getContentFactor")
+
+" From Viewer to Module
+let g:from = "Viewer"
+let g:to = "legend"
+
+let g:color = ' [color="blue" penwidth="2"]'
+call AddLink(".*\.addTiledImage.processReadyItems", "TiledImage")
+
+" From Viewer to Viewport
+let g:to = "Viewport"
+
+let g:color = ' [color="blue" penwidth="2"]'
+call AddLink(".*\.addTiledImage.processReadyItems", ".*\.goHome")
 
 " From Viewer to World
 let g:to = "World"
 
 let g:color = ' [color="blue" penwidth="2"]'
-call AddLink("this.addTiledImage.processReadyItems", "this.getHomeBounds")
+call AddLink("updateOnce", ".*\.update")
+call AddLink("updateOnce", ".*\.needsDraw")
+call AddLink(".*\.close", ".*\.removeAll")
+call AddLink(".*\.isOpen", ".*\.getItemCount")
+call AddLink(".*\.addTiledImage", ".*\.getItemAt")
+call AddLink(".*\.addTiledImage.refreshWorld", ".*\.arrange")
+call AddLink(".*\.addTiledImage.refreshWorld", ".*\.setAutoRefigureSizes")
+call AddLink(".*\.addTiledImage.processReadyItems", ".*\.addItem")
+call AddLink(".*\.addTiledImage.processReadyItems", ".*\.removeItem")
+call AddLink(".*\.addTiledImage.processReadyItems", ".*\.getIndexOfItem")
+call AddLink(".*\.addTiledImage.processReadyItems", ".*\.setAutoRefigureSizes")
 
 w
