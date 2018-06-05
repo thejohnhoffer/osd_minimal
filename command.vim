@@ -3,6 +3,7 @@ normal gg
 normal oclusterrank = "global";
 normal omclimit = 1000;
 %s/coral/wheat/
+%s/concentrate = true/concentrate = false/
 
 " Remove numbers from labels and redundant nodes
 %s/\(.*label.*"\)[0-9]*: \(.*\)/\1\2/
@@ -20,6 +21,7 @@ fu! AddLink(from_word, to_word)
   execute '%s/' . l:links . @f . ' -> ' . @t . g:color . ';\r\0/'
 endfu
 
+"""
 " Functions from Module to Module
 let g:from = "legend" | let g:to = "legend"
 let g:color = ' [color="blue" penwidth="2"]'
@@ -29,6 +31,11 @@ call AddLink("Viewer", "TileCache")
 call AddLink("Viewer", "Viewport")
 call AddLink("Viewer", "Drawer")
 call AddLink("Viewer", "World")
+
+" Events from Module to Viewer
+let g:from = "legend" | let g:to = "Viewer"
+let g:color = ' [color="red" penwidth="4"]'
+call AddLink("TileSource", ".*\.processReadyItems")
 
 " Functions from Module to Viewport
 let g:from = "legend" | let g:to = "Viewport"
@@ -41,15 +48,65 @@ let g:color = ' [color="blue" penwidth="2"]'
 call AddLink("Viewer", ".*\.getHomeBounds")
 call AddLink("Viewer", ".*\.getContentFactor")
 
+"""
+" Callbacks from TileSource to TileSource
+let g:from = "TileSource" | let g:to = "TileSource"
+let g:color = ' [color="pink" penwidth="4"]'
+call AddLink(".*\.getImageInfo", ".*\.getImageInfo\.callback")
+
+" Events from TileSource to Viewer
+let g:from = "TileSource" | let g:to = "Viewer"
+let g:color = ' [color="red" penwidth="4"]'
+call AddLink(".*\.getImageInfo\.callback", ".*\.processReadyItems")
+call AddLink(".*\.getImageInfo\.callback", ".*\.raiseAddItemFailed")
+
+"""
 " Functions from Viewer to Module
 let g:from = "Viewer" | let g:to = "legend"
 let g:color = ' [color="blue" penwidth="2"]'
-call AddLink(".*\.addTiledImage.processReadyItems", "TiledImage")
+call AddLink(".*\.processReadyItems", "TiledImage")
+call AddLink("getTileSourceImplementation", "TileSource")
+
+" Functions from Viewer to Drawer
+let g:from = "Viewer" | let g:to = "Drawer"
+let g:color = ' [color="blue" penwidth="2"]'
+call AddLink("drawWorld", ".*\.clear")
+call AddLink(".*\.destroy", ".*\.destroy")
+
+" Functions from Viewer to ImageLoader
+let g:from = "Viewer" | let g:to = "ImageLoader"
+let g:color = ' [color="blue" penwidth="2"]'
+call AddLink("drawWorld", ".*\.clear")
+call AddLink(".*\.close", ".*\.clear")
+
+" Functions from Viewer to Viewer
+let g:from = "Viewer" | let g:to = "Viewer"
+let g:color = ' [color="blue" penwidth="2"]'
+call AddLink(".*\.waitUntilReady", ".*\.waitUntilReady")
+call AddLink(".*\.getTileSourceImplementation", ".*\.waitUntilReady")
+
+" Callbacks from Viewer to Viewer
+let g:from = "Viewer" | let g:to = "Viewer"
+let g:color = ' [color="pink" penwidth="4"]'
+call AddLink("scheduleZoom", "doZoom")
+call AddLink("scheduleUpdate", "updateMulti")
+call AddLink(".*\.waitUntilReady", ".*\.processReadyItems")
+
+" Functions from Viewer to TileSource
+let g:from = "Viewer" | let g:to = "TileSource"
+let g:color = ' [color="blue" penwidth="2"]'
+call AddLink("getTileSourceImplementation", ".*\.configure")
+call AddLink("getTileSourceImplementation", ".*\.determineType")
 
 " Functions from Viewer to Viewport
 let g:from = "Viewer" | let g:to = "Viewport"
 let g:color = ' [color="blue" penwidth="2"]'
-call AddLink(".*\.addTiledImage.processReadyItems", ".*\.goHome")
+call AddLink(".*\.processReadyItems", ".*\.goHome")
+call AddLink(".*\.checkCompletion", ".*\.goHome")
+call AddLink(".*\.checkCompletion", ".*\.update")
+call AddLink("updateOnce", ".*\.update")
+call AddLink("doZoom", ".*\.applyConstraints")
+call AddLink("doZoom", ".*\.zoomBy")
 
 " Functions from Viewer to World
 let g:from = "Viewer" | let g:to = "World"
@@ -59,20 +116,29 @@ call AddLink("updateOnce", ".*\.needsDraw")
 call AddLink(".*\.close", ".*\.removeAll")
 call AddLink(".*\.isOpen", ".*\.getItemCount")
 call AddLink(".*\.addTiledImage", ".*\.getItemAt")
-call AddLink(".*\.addTiledImage.refreshWorld", ".*\.arrange")
-call AddLink(".*\.addTiledImage.refreshWorld", ".*\.setAutoRefigureSizes")
-call AddLink(".*\.addTiledImage.processReadyItems", ".*\.addItem")
-call AddLink(".*\.addTiledImage.processReadyItems", ".*\.removeItem")
-call AddLink(".*\.addTiledImage.processReadyItems", ".*\.getIndexOfItem")
-call AddLink(".*\.addTiledImage.processReadyItems", ".*\.setAutoRefigureSizes")
+call AddLink(".*\.refreshWorld", ".*\.arrange")
+call AddLink(".*\.refreshWorld", ".*\.setAutoRefigureSizes")
+call AddLink(".*\.processReadyItems", ".*\.addItem")
+call AddLink(".*\.processReadyItems", ".*\.removeItem")
+call AddLink(".*\.processReadyItems", ".*\.getIndexOfItem")
+call AddLink(".*\.getTileSourceImplementation", ".*\.setAutoRefigureSizes")
 
-" Events from World to World (Through viewer.js)
+"""
+" Events from World to World
 let g:from = "World" | let g:to = "World"
 let g:color = ' [color="red" penwidth="4"]'
 call AddLink(".*_figureSizes", ".*\.getHomeBounds")
 call AddLink(".*_figureSizes", ".*\.getContentFactor")
+call AddLink(".*_raiseRemoveItem", ".*\.getItemCount")
+call AddLink(".*_raiseRemoveItem", ".*\.getItemAt")
+call AddLink(".*\.addItem", ".*\.getItemAt")
 
-" Events from World to Viewport (Through viewer.js)
+" Events from World to Viewer
+let g:from = "World" | let g:to = "Viewer"
+let g:color = ' [color="red" penwidth="4"]'
+call AddLink(".*addItem", "scheduleUpdate")
+
+" Events from World to Viewport
 let g:from = "World" | let g:to = "Viewport"
 let g:color = ' [color="red" penwidth="4"]'
 call AddLink(".*_figureSizes", ".*\._setContentBounds")

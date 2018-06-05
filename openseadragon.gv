@@ -1,7 +1,7 @@
 digraph G {
 clusterrank = "global";
 mclimit = 1000;
-concentrate = true;
+concentrate = false;
 			subgraph legend{
 			rank = min;
 			label = "legend";
@@ -13,6 +13,7 @@ concentrate = true;
 				<tr><td>Function call which returns no value</td><td>&#8594;</td></tr>
 				<tr><td>Function call returns some value</td><td><font color='blue'>&#8594;</font></td></tr>
 				<tr><td>Handler call on raiseEvent</td><td><font color='red'>&#8594;</font></td></tr>
+                <tr><td>Callback call</td><td><font color='pink'>&#8594;</font></td></tr>
 				</table></td></tr></table>
 				>];}
 node2 [splines=ortho shape = "rect" style = "rounded" label = "OpenSeadragon" ];
@@ -447,11 +448,32 @@ node167 -> node310 [color="blue" penwidth="2"];
 node167 -> node395 [color="blue" penwidth="2"];
 node167 -> node509 [color="blue" penwidth="2"];
 node167 -> node227 [color="blue" penwidth="2"];
+node327 -> node192 [color="red" penwidth="4"];
 node167 -> node398 [color="blue" penwidth="2"];
 node167 -> node250 [color="blue" penwidth="2"];
 node167 -> node252 [color="blue" penwidth="2"];
+node353 -> node352 [color="pink" penwidth="4"];
+node352 -> node192 [color="red" penwidth="4"];
+node352 -> node188 [color="red" penwidth="4"];
 node192 -> node52 [color="blue" penwidth="2"];
+node205 -> node327 [color="blue" penwidth="2"];
+node215 -> node522 [color="blue" penwidth="2"];
+node184 -> node520 [color="blue" penwidth="2"];
+node215 -> node618 [color="blue" penwidth="2"];
+node182 -> node618 [color="blue" penwidth="2"];
+node202 -> node202 [color="blue" penwidth="2"];
+node205 -> node202 [color="blue" penwidth="2"];
+node217 -> node219 [color="pink" penwidth="4"];
+node209 -> node211 [color="pink" penwidth="4"];
+node202 -> node192 [color="pink" penwidth="4"];
+node205 -> node357 [color="blue" penwidth="2"];
+node205 -> node367 [color="blue" penwidth="2"];
 node192 -> node404 [color="blue" penwidth="2"];
+node173 -> node404 [color="blue" penwidth="2"];
+node173 -> node444 [color="blue" penwidth="2"];
+node213 -> node444 [color="blue" penwidth="2"];
+node219 -> node426 [color="blue" penwidth="2"];
+node219 -> node434 [color="blue" penwidth="2"];
 node213 -> node244 [color="blue" penwidth="2"];
 node213 -> node248 [color="blue" penwidth="2"];
 node182 -> node240 [color="blue" penwidth="2"];
@@ -462,9 +484,13 @@ node190 -> node254 [color="blue" penwidth="2"];
 node192 -> node230 [color="blue" penwidth="2"];
 node192 -> node238 [color="blue" penwidth="2"];
 node192 -> node234 [color="blue" penwidth="2"];
-node192 -> node254 [color="blue" penwidth="2"];
+node205 -> node254 [color="blue" penwidth="2"];
 node258 -> node250 [color="red" penwidth="4"];
 node258 -> node252 [color="red" penwidth="4"];
+node260 -> node236 [color="red" penwidth="4"];
+node260 -> node232 [color="red" penwidth="4"];
+node230 -> node232 [color="red" penwidth="4"];
+node230 -> node209 [color="red" penwidth="4"];
 node258 -> node398 [color="red" penwidth="4"];
 subgraph clusteropenseadragon0{
 node2 node6 node8 node10 node12 node18 node21 node23 node26 node2 node6 node8 node10 node12 node18 node21 node23 node26 ;
