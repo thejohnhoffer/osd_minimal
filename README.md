@@ -17,14 +17,12 @@ Make graph for source or build
 
 ```
 cd openseadragon/src
-code2flow *.js -o ../../openseadragon_src.svg
+code2flow *.js -o ../../osd_src.svg
 cd ../..
 ```
 
-Modify either resulting gv file then update the svg
+Make `osd.gv` and `osd.svg`
 
 ```
-cp openseadragon_src.gv openseadragon.gv
-vim -e openseadragon.gv < command.vim
-dot -Gdpi=60 -Tsvg openseadragon.gv > openseadragon.svg
+vim osd_src.gv '+:source osd.vim | w! osd.gv | w !dot -Tsvg > osd.svg' '+:q!'
 ```
