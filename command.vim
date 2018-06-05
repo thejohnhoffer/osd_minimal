@@ -45,9 +45,14 @@ call AddLink("Viewer", "Viewport")
 call AddLink("Viewer", "Drawer")
 call AddLink("Viewer", "World")
 
-" Events from Module to Viewer
+" Functions from Module to Viewer
 let g:from = "legend" | let g:to = "Viewer"
-let g:color = ' [color="red" penwidth="4"]'
+let g:color = ' [color="blue" penwidth="2"]'
+call AddLink("Viewer", ".*\.open")
+
+" Callbacks from Module to Viewer
+let g:from = "legend" | let g:to = "Viewer"
+let g:color = ' [color="pink" penwidth="4"]'
 call AddLink("TileSource", ".*\.processReadyItems")
 
 " Functions from Module to Viewport
@@ -71,6 +76,11 @@ call AddLink(".*\._raiseBoundsChange", ".*\._delegatedFigureSizes")
 
 
 """
+" Functions from TileSource to TileSource
+let g:from = "TileSource" | let g:to = "TileSource"
+let g:color = ' [color="blue" penwidth="2"]'
+call AddLink("determineType", ".*\.supports")
+
 " Callbacks from TileSource to TileSource
 let g:from = "TileSource" | let g:to = "TileSource"
 let g:color = ' [color="pink" penwidth="4"]'
@@ -94,6 +104,8 @@ let g:from = "Viewer" | let g:to = "Drawer"
 let g:color = ' [color="blue" penwidth="2"]'
 call AddLink("drawWorld", ".*\.clear")
 call AddLink(".*\.destroy", ".*\.destroy")
+call AddLink(".*\.doOne\.error", ".*\.checkCompletion")
+call AddLink(".*\.doOne\.success", ".*\.checkCompletion")
 
 " Functions from Viewer to ImageLoader
 let g:from = "Viewer" | let g:to = "ImageLoader"
@@ -110,6 +122,9 @@ call AddLink("getTileSourceImplementation", ".*\.determineType")
 " Functions from Viewer to Viewer
 let g:from = "Viewer" | let g:to = "Viewer"
 let g:color = ' [color="blue" penwidth="2"]'
+call AddLink(".*\.open", ".*\.close")
+call AddLink(".*\.open", ".*\.open\.doOne")
+call AddLink(".*\.open\.doOne", ".*\.addTiledImage")
 call AddLink(".*\.waitUntilReady", ".*\.waitUntilReady")
 call AddLink(".*\.getTileSourceImplementation", ".*\.waitUntilReady")
 
