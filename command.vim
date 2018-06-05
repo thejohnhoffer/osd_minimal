@@ -2,6 +2,7 @@
 normal gg
 normal oclusterrank = "global";
 normal omclimit = 1000;
+%s/coral/wheat/
 
 " Remove numbers from labels and redundant nodes
 %s/\(.*label.*"\)[0-9]*: \(.*\)/\1\2/
@@ -22,7 +23,6 @@ endfu
 " Functions from Module to Module
 let g:from = "legend" | let g:to = "legend"
 let g:color = ' [color="blue" penwidth="2"]'
-
 call AddLink("OpenSeadragon", "Viewer")
 call AddLink("Viewer", "ImageLoader")
 call AddLink("Viewer", "TileCache")
@@ -33,32 +33,27 @@ call AddLink("Viewer", "World")
 " Functions from Module to Viewport
 let g:from = "legend" | let g:to = "Viewport"
 let g:color = ' [color="blue" penwidth="2"]'
-
 call AddLink("Viewer", ".*\._setContentBounds")
 
 " Functions from Module to world
 let g:from = "legend" | let g:to = "World"
 let g:color = ' [color="blue" penwidth="2"]'
-
 call AddLink("Viewer", ".*\.getHomeBounds")
 call AddLink("Viewer", ".*\.getContentFactor")
 
 " Functions from Viewer to Module
 let g:from = "Viewer" | let g:to = "legend"
 let g:color = ' [color="blue" penwidth="2"]'
-
 call AddLink(".*\.addTiledImage.processReadyItems", "TiledImage")
 
 " Functions from Viewer to Viewport
 let g:from = "Viewer" | let g:to = "Viewport"
 let g:color = ' [color="blue" penwidth="2"]'
-
 call AddLink(".*\.addTiledImage.processReadyItems", ".*\.goHome")
 
 " Functions from Viewer to World
 let g:from = "Viewer" | let g:to = "World"
 let g:color = ' [color="blue" penwidth="2"]'
-
 call AddLink("updateOnce", ".*\.update")
 call AddLink("updateOnce", ".*\.needsDraw")
 call AddLink(".*\.close", ".*\.removeAll")
@@ -76,5 +71,10 @@ let g:from = "World" | let g:to = "World"
 let g:color = ' [color="red" penwidth="4"]'
 call AddLink(".*_figureSizes", ".*\.getHomeBounds")
 call AddLink(".*_figureSizes", ".*\.getContentFactor")
+
+" Events from World to Viewport (Through viewer.js)
+let g:from = "World" | let g:to = "Viewport"
+let g:color = ' [color="red" penwidth="4"]'
+call AddLink(".*_figureSizes", ".*\._setContentBounds")
 
 w
