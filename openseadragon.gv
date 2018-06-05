@@ -13,6 +13,7 @@ concentrate = true;
 				<tr><td>Leaf function (this calls nothing else)</td><td bgcolor='green'></td></tr>
 				<tr><td>Function call which returns no value</td><td>&#8594;</td></tr>
 				<tr><td>Function call returns some value</td><td><font color='blue'>&#8594;</font></td></tr>
+				<tr><td>Handler call on raiseEvent</td><td><font color='red'>&#8594;</font></td></tr>
 				</table></td></tr></table>
 				>];}
 node2 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "coral" label = "OpenSeadragon" ];
@@ -463,6 +464,8 @@ node192 -> node230 [color="blue" penwidth="2"];
 node192 -> node238 [color="blue" penwidth="2"];
 node192 -> node234 [color="blue" penwidth="2"];
 node192 -> node254 [color="blue" penwidth="2"];
+node258 -> node250 [color="red" penwidth="4"];
+node258 -> node252 [color="red" penwidth="4"];
 subgraph clusteropenseadragon0{
 node2 node6 node8 node10 node12 node18 node21 node23 node26 node2 node6 node8 node10 node12 node18 node21 node23 node26 ;
 label="openseadragon";

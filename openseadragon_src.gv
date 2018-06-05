@@ -11,8 +11,10 @@ concentrate = true;
 				<tr><td>Leaf function (this calls nothing else)</td><td bgcolor='green'></td></tr>
 				<tr><td>Function call which returns no value</td><td>&#8594;</td></tr>
 				<tr><td>Function call returns some value</td><td><font color='blue'>&#8594;</font></td></tr>
+				<tr><td>Handler call on raiseEvent</td><td><font color='red'>&#8594;</font></td></tr>
 				</table></td></tr></table>
-				>];}node30 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "coral" label = "(openseadragon window frame (runs on import))" ];
+				>];}
+node30 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "coral" label = "(openseadragon window frame (runs on import))" ];
 node2 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "coral" label = "OpenSeadragon" ];
 node6 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "coral" label = "isFunction" ];
 node8 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "coral" label = "isWindow" ];

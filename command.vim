@@ -1,5 +1,4 @@
-" Clean up and fix settings
-%s/;}\(node.*\)/;}\r\1/
+" Custom settings
 normal gg
 normal oclusterrank = "global";
 normal omclimit = 1000;
@@ -20,11 +19,10 @@ fu! AddLink(from_word, to_word)
   execute '%s/' . l:links . @f . ' -> ' . @t . g:color . ';\r\0/'
 endfu
 
-" From Module to Module
-let g:from = "legend"
-let g:to = "legend"
-
+" Functions from Module to Module
+let g:from = "legend" | let g:to = "legend"
 let g:color = ' [color="blue" penwidth="2"]'
+
 call AddLink("OpenSeadragon", "Viewer")
 call AddLink("Viewer", "ImageLoader")
 call AddLink("Viewer", "TileCache")
@@ -32,38 +30,35 @@ call AddLink("Viewer", "Viewport")
 call AddLink("Viewer", "Drawer")
 call AddLink("Viewer", "World")
 
-" From Module to Viewport
-let g:from = "legend"
-let g:to = "Viewport"
-
+" Functions from Module to Viewport
+let g:from = "legend" | let g:to = "Viewport"
 let g:color = ' [color="blue" penwidth="2"]'
+
 call AddLink("Viewer", ".*\._setContentBounds")
 
-" From Module to world
-let g:from = "legend"
-let g:to = "World"
-
+" Functions from Module to world
+let g:from = "legend" | let g:to = "World"
 let g:color = ' [color="blue" penwidth="2"]'
+
 call AddLink("Viewer", ".*\.getHomeBounds")
 call AddLink("Viewer", ".*\.getContentFactor")
 
-" From Viewer to Module
-let g:from = "Viewer"
-let g:to = "legend"
-
+" Functions from Viewer to Module
+let g:from = "Viewer" | let g:to = "legend"
 let g:color = ' [color="blue" penwidth="2"]'
+
 call AddLink(".*\.addTiledImage.processReadyItems", "TiledImage")
 
-" From Viewer to Viewport
-let g:to = "Viewport"
-
+" Functions from Viewer to Viewport
+let g:from = "Viewer" | let g:to = "Viewport"
 let g:color = ' [color="blue" penwidth="2"]'
+
 call AddLink(".*\.addTiledImage.processReadyItems", ".*\.goHome")
 
-" From Viewer to World
-let g:to = "World"
-
+" Functions from Viewer to World
+let g:from = "Viewer" | let g:to = "World"
 let g:color = ' [color="blue" penwidth="2"]'
+
 call AddLink("updateOnce", ".*\.update")
 call AddLink("updateOnce", ".*\.needsDraw")
 call AddLink(".*\.close", ".*\.removeAll")
@@ -75,5 +70,11 @@ call AddLink(".*\.addTiledImage.processReadyItems", ".*\.addItem")
 call AddLink(".*\.addTiledImage.processReadyItems", ".*\.removeItem")
 call AddLink(".*\.addTiledImage.processReadyItems", ".*\.getIndexOfItem")
 call AddLink(".*\.addTiledImage.processReadyItems", ".*\.setAutoRefigureSizes")
+
+" Events from World to World (Through viewer.js)
+let g:from = "World" | let g:to = "World"
+let g:color = ' [color="red" penwidth="4"]'
+call AddLink(".*_figureSizes", ".*\.getHomeBounds")
+call AddLink(".*_figureSizes", ".*\.getContentFactor")
 
 w
