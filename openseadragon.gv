@@ -16,6 +16,7 @@ concentrate = false;
                 <tr><td>Callback call</td><td><font color='pink'>&#8594;</font></td></tr>
 				</table></td></tr></table>
 				>];}
+
 node2 [splines=ortho shape = "rect" style = "rounded" label = "OpenSeadragon" ];
 node6 [splines=ortho shape = "rect" style = "rounded" label = "isFunction" ];
 node8 [splines=ortho shape = "rect" style = "rounded" label = "isWindow" ];
@@ -25,12 +26,14 @@ node18 [splines=ortho shape = "rect" style = "rounded" label = "extend" ];
 node21 [splines=ortho shape = "rect" style = "rounded" label = "requestAnimationFrame" ];
 node23 [splines=ortho shape = "rect" style = "rounded" label = "cancelAnimationFrame" ];
 node26 [splines=ortho shape = "rect" style = "rounded" label = "getOffsetParent" ];
+
 node35 [splines=ortho shape = "rect" style = "rounded" label = "EventSource" ];
 node38 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "eventsource.addHandler" ];
 node40 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "eventsource.removeHandler" ];
 node42 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "eventsource.removeAllHandlers" ];
 node44 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "eventsource.getHandler" ];
 node46 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "eventsource.raiseEvent" ];
+
 node52 [splines=ortho shape = "rect" style = "rounded" label = "TiledImage" ];
 node55 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tiledimage.needsDraw" ];
 node57 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tiledimage._setFullyLoaded" ];
@@ -83,6 +86,7 @@ node150 [splines=ortho shape = "rect" style = "rounded" label = "setCoverage" ];
 node152 [splines=ortho shape = "rect" style = "rounded" label = "resetCoverage" ];
 node154 [splines=ortho shape = "rect" style = "rounded" label = "compareTiles" ];
 node156 [splines=ortho shape = "rect" style = "rounded" label = "drawTiles" ];
+
 node167 [splines=ortho shape = "rect" style = "rounded" label = "Viewer" ];
 node170 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "viewer.isOpen" ];
 node180 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "viewer.open" ];
@@ -107,6 +111,7 @@ node213 [splines=ortho shape = "rect" style = "rounded" label = "updateOnce" ];
 node215 [splines=ortho shape = "rect" style = "rounded" label = "drawWorld" ];
 node217 [splines=ortho shape = "rect" style = "rounded" label = "scheduleZoom" ];
 node219 [splines=ortho shape = "rect" style = "rounded" label = "doZoom" ];
+
 node227 [splines=ortho shape = "rect" style = "rounded" label = "World" ];
 node226 [splines=ortho shape = "rect" style = "rounded" label = "World._delegatedFigureSizes" ];
 node230 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "world.addItem" ];
@@ -125,17 +130,19 @@ node254 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "whea
 node256 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "world.arrange" ];
 node258 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "world._figureSizes" ];
 node260 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "world._raiseRemoveItem" ];
+
 node266 [splines=ortho shape = "rect" style = "rounded" label = "Point" ];
-node269 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "point.clone" ];
-node271 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "point.plus" ];
-node273 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "point.minus" ];
-node275 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "point.times" ];
-node277 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "point.divide" ];
-node279 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "point.distanceTo" ];
-node281 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "point.squaredDistanceTo" ];
-node283 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "point.apply" ];
-node285 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "point.equals" ];
-node287 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "point.toString" ];
+
+
+
+
+
+
+
+
+
+
+
 node310 [splines=ortho shape = "rect" style = "rounded" label = "TileCache" ];
 node293 [splines=ortho shape = "rect" style = "rounded" label = "TileRecord" ];
 node295 [splines=ortho shape = "rect" style = "rounded" label = "ImageRecord" ];
@@ -150,6 +157,7 @@ node315 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "whea
 node317 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tilecache.clearTilesFor" ];
 node319 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tilecache.getImageRecord" ];
 node321 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tilecache._unloadTile" ];
+
 node327 [splines=ortho shape = "rect" style = "rounded" label = "TileSource" ];
 node330 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tilesource.getTileSize" ];
 node332 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tilesource.getTileWidth" ];
@@ -170,6 +178,7 @@ node361 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "whea
 node363 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tilesource.tileExists" ];
 node365 [splines=ortho shape = "rect" style = "rounded" label = "processResponse" ];
 node367 [splines=ortho shape = "rect" style = "rounded" label = "determineType" ];
+
 node376 [splines=ortho shape = "rect" style = "rounded" label = "Spring" ];
 node379 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "spring.resetTo" ];
 node381 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "spring.springTo" ];
@@ -177,6 +186,7 @@ node383 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "whea
 node385 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "spring.update" ];
 node387 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "spring.isAtTargetValue" ];
 node389 [splines=ortho shape = "rect" style = "rounded" label = "transform" ];
+
 node395 [splines=ortho shape = "rect" style = "rounded" label = "Viewport" ];
 node398 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "viewport._setContentBounds" ];
 node400 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "viewport.getHomeZoom" ];
@@ -220,6 +230,7 @@ node476 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "whea
 node478 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "viewport.viewportToViewerElementRectangle" ];
 node480 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "viewport.viewportToImageZoom" ];
 node482 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "viewport.imageToViewportZoom" ];
+
 node488 [splines=ortho shape = "rect" style = "rounded" label = "Tile" ];
 node491 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tile.toString" ];
 node493 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tile._hasTransparencyChannel" ];
@@ -227,6 +238,7 @@ node495 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "whea
 node497 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tile.getScaleForEdgeSmoothing" ];
 node501 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tile.getTranslationForEdgeSmoothing" ];
 node503 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tile.unload" ];
+
 node509 [splines=ortho shape = "rect" style = "rounded" label = "Drawer" ];
 node512 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "drawer.needsUpdate" ];
 node514 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "drawer.numTilesLoaded" ];
@@ -245,26 +257,28 @@ node538 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "whea
 node540 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "drawer.getCanvasSize" ];
 node542 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "drawer._calculateCanvasSize" ];
 node544 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "drawer._calculateSketchCanvasSize" ];
+
 node550 [splines=ortho shape = "rect" style = "rounded" label = "Rect" ];
 node552 [splines=ortho shape = "rect" style = "rounded" label = "fromSummits" ];
-node555 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "rectangle.clone" ];
-node557 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "rectangle.getAspectRatio" ];
-node559 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "rectangle.getTopLeft" ];
-node561 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "rectangle.getBottomRight" ];
-node563 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "rectangle.getTopRight" ];
-node565 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "rectangle.getBottomLeft" ];
-node567 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "rectangle.getCenter" ];
-node569 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "rectangle.getSize" ];
-node571 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "rectangle.equals" ];
-node573 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "rectangle.times" ];
-node575 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "rectangle.translate" ];
-node579 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "rectangle.intersection" ];
-node578 [splines=ortho shape = "rect" style = "rounded" label = "rectangle.intersection.getIntersection" ];
-node581 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "rectangle._getSegments" ];
-node583 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "rectangle.getBoundingBox" ];
-node585 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "rectangle.getIntegerBoundingBox" ];
-node587 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "rectangle.containsPoint" ];
-node589 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "rectangle.toString" ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 node610 [splines=ortho shape = "rect" style = "rounded" label = "ImageLoader" ];
 node595 [splines=ortho shape = "rect" style = "rounded" label = "ImageJob" ];
 node606 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "imageloader.start" ];
@@ -431,15 +445,15 @@ node534 -> node530 [color="blue" penwidth="2"];
 node536 -> node530 [color="blue" penwidth="2"];
 node540 -> node530 [color="blue" penwidth="2"];
 node544 -> node542 [color="blue" penwidth="2"];
-node581 -> node559 [color="blue" penwidth="2"];
-node581 -> node561 [color="blue" penwidth="2"];
-node581 -> node563 [color="blue" penwidth="2"];
-node581 -> node565 [color="blue" penwidth="2"];
-node583 -> node555 [color="blue" penwidth="2"];
-node585 -> node583 [color="blue" penwidth="2"];
-node587 -> node559 [color="blue" penwidth="2"];
-node587 -> node563 [color="blue" penwidth="2"];
-node587 -> node565 [color="blue" penwidth="2"];
+
+
+
+
+
+
+
+
+
 node616 -> node595;
 node614 -> node620;
 node2 -> node167 [color="blue" penwidth="2"];
@@ -452,6 +466,9 @@ node327 -> node192 [color="red" penwidth="4"];
 node167 -> node398 [color="blue" penwidth="2"];
 node167 -> node250 [color="blue" penwidth="2"];
 node167 -> node252 [color="blue" penwidth="2"];
+node227 -> node258 [color="blue" penwidth="2"];
+node107 -> node226 [color="red" penwidth="4"];
+node113 -> node226 [color="red" penwidth="4"];
 node353 -> node352 [color="pink" penwidth="4"];
 node352 -> node192 [color="red" penwidth="4"];
 node352 -> node188 [color="red" penwidth="4"];
@@ -461,19 +478,20 @@ node215 -> node522 [color="blue" penwidth="2"];
 node184 -> node520 [color="blue" penwidth="2"];
 node215 -> node618 [color="blue" penwidth="2"];
 node182 -> node618 [color="blue" penwidth="2"];
+node205 -> node357 [color="blue" penwidth="2"];
+node205 -> node367 [color="blue" penwidth="2"];
 node202 -> node202 [color="blue" penwidth="2"];
 node205 -> node202 [color="blue" penwidth="2"];
 node217 -> node219 [color="pink" penwidth="4"];
 node209 -> node211 [color="pink" penwidth="4"];
 node202 -> node192 [color="pink" penwidth="4"];
-node205 -> node357 [color="blue" penwidth="2"];
-node205 -> node367 [color="blue" penwidth="2"];
 node192 -> node404 [color="blue" penwidth="2"];
 node173 -> node404 [color="blue" penwidth="2"];
 node173 -> node444 [color="blue" penwidth="2"];
 node213 -> node444 [color="blue" penwidth="2"];
 node219 -> node426 [color="blue" penwidth="2"];
 node219 -> node434 [color="blue" penwidth="2"];
+node215 -> node246 [color="blue" penwidth="2"];
 node213 -> node244 [color="blue" penwidth="2"];
 node213 -> node248 [color="blue" penwidth="2"];
 node182 -> node240 [color="blue" penwidth="2"];
@@ -485,22 +503,24 @@ node192 -> node230 [color="blue" penwidth="2"];
 node192 -> node238 [color="blue" penwidth="2"];
 node192 -> node234 [color="blue" penwidth="2"];
 node205 -> node254 [color="blue" penwidth="2"];
+node226 -> node258 [color="blue" penwidth="2"];
 node258 -> node250 [color="red" penwidth="4"];
 node258 -> node252 [color="red" penwidth="4"];
 node260 -> node236 [color="red" penwidth="4"];
 node260 -> node232 [color="red" penwidth="4"];
 node230 -> node232 [color="red" penwidth="4"];
+node240 -> node197 [color="blue" penwidth="2"];
 node230 -> node209 [color="red" penwidth="4"];
 node258 -> node398 [color="red" penwidth="4"];
 subgraph clusteropenseadragon0{
-node2 node6 node8 node10 node12 node18 node21 node23 node26 node2 node6 node8 node10 node12 node18 node21 node23 node26 ;
+
 label="openseadragon";
 style=filled;
 color=black;
 graph[style=dotted];
 };
 subgraph clustereventsource31{
-node35 node38 node40 node42 node44 node46 node35 ;
+
 label="eventsource";
 style=filled;
 color=black;
@@ -513,7 +533,7 @@ color=black;
 graph[style=dotted];
 }};
 subgraph clustertiledimage49{
-node52 node55 node57 node59 node61 node63 node65 node67 node69 node71 node73 node75 node77 node79 node81 node83 node85 node87 node89 node91 node93 node95 node97 node99 node101 node103 node105 node107 node109 node111 node113 node115 node117 node120 node122 node124 node126 node128 node130 node134 node133 node140 node137 node139 node142 node144 node146 node148 node150 node152 node154 node156 node52 node124 node126 node128 node130 node142 node144 node146 node148 node150 node152 node154 node156 ;
+
 label="tiledimage";
 style=filled;
 color=black;
@@ -538,7 +558,7 @@ color=black;
 graph[style=dotted];
 }};
 subgraph clusterviewer159{
-node167 node170 node180 node173 node179 node176 node178 node182 node184 node193 node188 node190 node192 node195 node197 node199 node205 node202 node209 node211 node213 node215 node217 node219 node167 node199 node209 node211 node213 node215 node217 node219 ;
+
 label="viewer";
 style=filled;
 color=black;
@@ -575,7 +595,7 @@ color=black;
 graph[style=dotted];
 }};
 subgraph clusterworld222{
-node227 node226 node230 node232 node234 node236 node238 node240 node242 node244 node246 node248 node250 node252 node254 node256 node258 node260 ;
+
 label="world";
 style=filled;
 color=black;
@@ -593,21 +613,9 @@ style=filled;
 color=black;
 graph[style=dotted];
 }};
-subgraph clusterpoint263{
-node266 node269 node271 node273 node275 node277 node279 node281 node283 node285 node287 node266 ;
-label="point";
-style=filled;
-color=black;
-graph[style=dotted];
-subgraph clusterprototype267{
-node269 node271 node273 node275 node277 node279 node281 node283 node285 node287 node269 node271 node273 node275 node277 node279 node281 node283 node285 node287 ;
-label="prototype";
-style=filled;
-color=black;
-graph[style=dotted];
-}};
+
 subgraph clustertilecache290{
-node310 node293 node295 node298 node300 node302 node304 node306 node308 node313 node315 node317 node319 node321 node310 node293 node295 ;
+
 label="tilecache";
 style=filled;
 color=black;
@@ -626,7 +634,7 @@ color=black;
 graph[style=dotted];
 }};
 subgraph clustertilesource324{
-node327 node330 node332 node334 node339 node338 node341 node343 node345 node347 node349 node353 node352 node355 node357 node359 node361 node363 node365 node367 node327 node365 node367 ;
+
 label="tilesource";
 style=filled;
 color=black;
@@ -651,7 +659,7 @@ color=black;
 graph[style=dotted];
 }}};
 subgraph clusterspring370{
-node376 node379 node381 node383 node385 node387 node389 node376 node389 ;
+
 label="spring";
 style=filled;
 color=black;
@@ -664,7 +672,7 @@ color=black;
 graph[style=dotted];
 }};
 subgraph clusterviewport392{
-node395 node398 node400 node402 node404 node406 node408 node410 node412 node414 node416 node418 node420 node422 node424 node426 node428 node430 node432 node434 node436 node438 node440 node444 node446 node448 node450 node452 node454 node456 node458 node460 node462 node464 node466 node468 node470 node472 node474 node476 node478 node480 node482 node395 ;
+
 label="viewport";
 style=filled;
 color=black;
@@ -677,7 +685,7 @@ color=black;
 graph[style=dotted];
 }};
 subgraph clustertile485{
-node488 node491 node493 node495 node497 node501 node503 node488 ;
+
 label="tile";
 style=filled;
 color=black;
@@ -690,7 +698,7 @@ color=black;
 graph[style=dotted];
 }};
 subgraph clusterdrawer506{
-node509 node512 node514 node516 node518 node520 node522 node524 node526 node528 node530 node532 node534 node536 node538 node540 node542 node544 node509 ;
+
 label="drawer";
 style=filled;
 color=black;
@@ -702,27 +710,9 @@ style=filled;
 color=black;
 graph[style=dotted];
 }};
-subgraph clusterrectangle547{
-node550 node552 node555 node557 node559 node561 node563 node565 node567 node569 node571 node573 node575 node579 node578 node581 node583 node585 node587 node589 node550 node552 ;
-label="rectangle";
-style=filled;
-color=black;
-graph[style=dotted];
-subgraph clusterprototype553{
-node555 node557 node559 node561 node563 node565 node567 node569 node571 node573 node575 node579 node578 node581 node583 node585 node587 node589 node555 node557 node559 node561 node563 node565 node567 node569 node571 node573 node575 node581 node583 node585 node587 node589 ;
-label="prototype";
-style=filled;
-color=black;
-graph[style=dotted];
-subgraph clusterintersection576{
-node579 node578 node578 ;
-label="intersection";
-style=filled;
-color=black;
-graph[style=dotted];
-}}};
+
 subgraph clusterimageloader592{
-node610 node595 node606 node599 node601 node605 node608 node616 node614 node618 node620 node610 node595 node620 ;
+
 label="imageloader";
 style=filled;
 color=black;
