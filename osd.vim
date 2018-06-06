@@ -5,29 +5,39 @@ fu! RmNode()
 endfu
 
 " Add links between nodes
-fu! AddLink(color, from, to, from_word, to_word)
-  let l:links = 'subgraph clusteropenseadragon.*/'
+fu! AddLink(color, from, to, from_word, to_word, port)
+  let links = 'subgraph clusteropenseadragon.*/'
 
   " Link from word's node @s to word's node @t
   execute 'g/ "' . a:from . '"//node.* "' . a:from_word . '"/ normal "fye'
   execute 'g/ "' . a:to . '"//node.* "' . a:to_word . '"/ normal "tye'
 
   " Add links before first link
-  execute '%s/' . l:links . @f . ' -> ' . @t . a:color . ';\r\0/'
+  execute '%s/' . links . @f . a:port.f . ' -> ' . @t . a:port.t . a:color . ';\r\0/'
 endfu
 
 " Set link constants
 fu! AddLinks(f, t, a, pairs)
-  let l:types = {
+  " Styles for function types
+  let types = {
   \'callback': ' [color="pink" penwidth="4"]',
   \'return': ' [color="blue" penwidth="2"]',
   \'event': ' [color="red" penwidth="4"]'
   \}
-  let l:color = get(l:types, a:a, '')
+  let color = get(types, a:a, '')
   for i in a:pairs
-    let [l:from, l:to] = i
+    if len(i) == 2
+      let [port_f, port_t] = ["", ""]
+      let [l:from, l:to] = i
+    elseif len(i) == 3
+      let port_t = ""
+      let [l:from, l:to, port_f] = i
+    elseif len(i) == 4
+      let [l:from, l:to, port_f, port_t] = i
+    endif
+    let ports = {"f": port_f, "t": port_t}
 
-    call AddLink(l:color, a:f, a:t, l:from, l:to)
+    call AddLink(color, a:f, a:t, l:from, l:to, ports)
   endfor
 endfu
 
@@ -35,6 +45,7 @@ endfu
 normal gg
 normal oclusterrank = "global";
 normal omclimit = 1000;
+normal oranksep = 1;
 normal odpi = 55;
 %s/coral/wheat/
 %s/concentrate = true/concentrate = false/
@@ -49,21 +60,37 @@ normal odpi = 55;
 %s/tilecache\.removeTile/imagerecord.removeTile/
 %s/tilecache\.getTileCount/imagerecord.getTileCount/
 
-" Remove import and eventsource nodes
+" Remove import, and global helper nodes
 g/node[0-9]*.*(runs on import).*/ call RmNode()
-g/node[0-9]*.* "eventsource.*"/ call RmNode()
+g/node[0-9]*.* "cancelAnimationFrame"/ call RmNode()
+g/node[0-9]*.* "requestAnimationFrame"/ call RmNode()
+g/node[0-9]*.* "getOffsetParent"/ call RmNode()
+g/node[0-9]*.* "isPlainObject"/ call RmNode()
+g/node[0-9]*.* "isFunction"/ call RmNode()
+g/node[0-9]*.* "isWindow"/ call RmNode()
+g/node[0-9]*.* "type"/ call RmNode()
+g/node[0-9]*.* "extend"/ call RmNode()
+
+" Remove eventsource nodes
+g/node[0-9]*.* "EventSource"/ call RmNode()
+g/node[0-9]*.* "eventsource\..*"/ call RmNode()
 
 " Remove point nodes
 %s/.*clusterpoint\_.\{-}}};//
-g/node[0-9]*.* "point.*"/ call RmNode()
+g/node[0-9]*.* "Point"/ call RmNode()
+g/node[0-9]*.* "point\..*"/ call RmNode()
 
 " Remove rectangle nodes
 %s/.*clusterrectangle\_.\{-}}}};//
-g/node[0-9]*.* "rectangle.*"/ call RmNode()
+g/node[0-9]*.* "Rect"/ call RmNode()
+g/node[0-9]*.* "fromSummits"/ call RmNode()
+g/node[0-9]*.* "rectangle\..*"/ call RmNode()
 
 " Remove spring nodes
 %s/.*clusterspring\_.\{-}}};//
-g/node[0-9]*.* "spring.*"/ call RmNode()
+g/node[0-9]*.* "Spring"/ call RmNode()
+g/node[0-9]*.* "transform"/ call RmNode()
+g/node[0-9]*.* "spring\..*"/ call RmNode()
 
 """
 " Calls from Module
@@ -74,6 +101,14 @@ call AddLinks("legend", "legend", "return", [
 \["Viewer", "Viewport"],
 \["Viewer", "Drawer"],
 \["Viewer", "World"],
+\])
+
+call AddLinks("legend", "TileSource", "return", [
+\["TileSource", ".*\.getImageInfo"],
+\])
+
+call AddLinks("legend", "Drawer", "return", [
+\["Drawer", ".*\._calculateCanvasSize"],
 \])
 
 call AddLinks("legend", "Viewer", "return", [
@@ -96,12 +131,12 @@ call AddLinks("legend", "World", "return", [
 
 """
 " Calls from Drawer
-call AddLinks("Drawer", "Viewport", "return", [
-\[".*\._calculateCanvasSize", ".*\.getContainerSize"],
+call AddLinks("Drawer", "Tile", "return", [
+\[".*\.drawTile", ".*\.drawCanvas"],
 \])
 
-call AddLinks("Drawer", "World", "return", [
-\[".*\.reset", ".*\.resetItems"],
+call AddLinks("Drawer", "Viewport", "return", [
+\[".*\._calculateCanvasSize", ".*\.getContainerSize"],
 \])
 
 """
@@ -112,16 +147,28 @@ call AddLinks("Tile", "ImageRecord", "return", [
 \])
 
 """
+" Calls from ImageJob
+call AddLinks("ImageJob", "ImageJob", "callback", [
+\["*.*\.start", ".*\.start\.onerror"],
+\["*.*\.start", ".*\.start\.onload"],
+\])
+
+call AddLinks("ImageJob", "ImageJob", "return", [
+\[".*\.start\.onerror", ".*\.finish"],
+\[".*\.start\.onload", ".*\.finish"],
+\[".*\.abort", ".*\.abort"],
+\])
+
+call AddLinks("ImageJob", "ImageLoader", "callback", [
+\["*.*\.finish", ".*\.addJob\.complete"],
+\])
+
+"""
 " Calls from ImageLoader
 call AddLinks("ImageLoader", "ImageJob", "return", [
 \["completeJob", ".*\.start"],
 \[".*\.addJob", ".*\.start"],
-\])
-
-"""
-" Calls from ImageJob
-call AddLinks("ImageJob", "ImageLoader", "callback", [
-\["*.*\.finish", ".*\.addJob\.complete"],
+\[".*\.clear", ".*\.abort"],
 \])
 
 """
@@ -133,8 +180,16 @@ call AddLinks("TileCache", "ImageRecord", "return", [
 \[".*\._unloadTile", ".*\.getTileCount"],
 \])
 
+call AddLinks("TileCache", "Tile", "return", [
+\[".*\._unloadTile", ".*\.unload"],
+\])
+
 """
 " Calls from TiledImage
+call AddLinks("TiledImage", "legend", "return", [
+\["getTile", "Tile"],
+\])
+
 call AddLinks("TiledImage", "Drawer", "return", [
 \["drawTiles", ".*\.viewportToDrawerRectangle"],
 \["drawTiles", ".*\.restoreContext"],
@@ -146,22 +201,58 @@ call AddLinks("TiledImage", "Drawer", "return", [
 \["drawTiles", ".*\._clear"],
 \])
 
+call AddLinks("TiledImage", "ImageLoader", "return", [
+\["loadTile", ".*\.addJob"],
+\])
+
+call AddLinks("TiledImage", "ImageRecord", "return", [
+\["getTile", ".*\.getImage"],
+\])
+
+call AddLinks("TiledImage", "Tile", "return", [
+\["drawTiles", ".*\.getTranslationForEdgeSmoothing"],
+\["drawTiles", ".*\.getScaleForEdgeSmoothing"],
+\])
+
 call AddLinks("TiledImage", "TileCache", "return", [
 \["updateTile", ".*\.getImageRecord"],
+\[".*\.reset", ".*\.clearTilesFor"],
+\[".*\.completionCallback", ".*\.cacheTile"],
 \])
 
 call AddLinks("TiledImage", "TiledImage", "return", [
+\["onTileLoad", ".*\.onTileLoad\.finish"],
 \["updateLevel", ".*\._getCornerTiles"],
+\[".*\._updateViewport", "drawTiles"],
 \["drawTiles", ".*\.viewportToImageZoom"],
+\["drawTiles", ".*\.imageToViewportRectangle"],
 \["setTileLoaded", ".*\.getCompletionCallback"],
 \["setTileLoaded", ".*\.completionCallback"],
 \])
 
+call AddLinks("TiledImage", "TiledImage", "callback", [
+\["onTileLoad", ".*\.onTileLoad\.finish"],
+\])
+
 call AddLinks("TiledImage", "TileSource", "return", [
-\[".*\.getTile", ".*\.getTileUrl"],
-\[".*\.getTile", ".*\.getTileAjaxHeaders"],
+\["getTile", ".*\.tileExists"],
+\["getTile", ".*\.getTileUrl"],
+\["getTile", ".*\.getTileBounds"],
+\["updateLevel", ".*\.getTileBounds"],
+\["getTile", ".*\.getTileAjaxHeaders"],
+\[".*\._getCornerTiles", ".*\.getTileAtPoint"],
+\["onTileLoad\.finish", ".*\.getClosestLevel"],
 \[".*\._getLevelsInterval", ".*\.getPixelRatio"],
+\[".*\._updateViewport", ".*\.getClosestLevel"],
 \[".*\._updateViewport", ".*\.getPixelRatio"],
+\])
+
+call AddLinks("TiledImage", "Viewport", "return", [
+\["drawTiles", ".*\.viewportToViewerElementRectangle"],
+\["positionTile", ".*\.deltaPixelsFromPoints"],
+\[".*\._getLevelsInterval", ".*\.deltaPixelsFromPoints"],
+\[".*\._updateViewport", ".*\.deltaPixelsFromPoints"],
+\[".*\._updateViewport", ".*\.getBoundsWithMargins"],
 \])
 
 call AddLinks("TiledImage", "World", "event", [
@@ -172,6 +263,10 @@ call AddLinks("TiledImage", "World", "event", [
 """
 " Calls from TileSource
 call AddLinks("TileSource", "TileSource", "return", [
+\[".*\.getNumTiles", ".*\.getLevelScale"],
+\[".*\.getPixelRatio", ".*\.getLevelScale"],
+\[".*\.getTileAtPoint", ".*\.getLevelScale"],
+\[".*\.getTileBounds", ".*\.getLevelScale"],
 \["determineType", ".*\.supports"],
 \])
 
@@ -193,9 +288,6 @@ call AddLinks("Viewer", "legend", "return", [
 
 call AddLinks("Viewer", "Drawer", "return", [
 \["drawWorld", ".*\.clear"],
-\[".*\.destroy", ".*\.destroy"],
-\[".*\.doOne\.error", ".*\.checkCompletion"],
-\[".*\.doOne\.success", ".*\.checkCompletion"],
 \])
 
 call AddLinks("Viewer", "ImageLoader", "return", [
@@ -210,16 +302,22 @@ call AddLinks("Viewer", "TileSource", "return", [
 
 call AddLinks("Viewer", "Viewer", "return", [
 \[".*\.open", ".*\.close"],
+\["updateMulti", ".*\.isOpen"],
 \[".*\.open", ".*\.open\.doOne"],
 \[".*\.open\.doOne", ".*\.addTiledImage"],
 \[".*\.waitUntilReady", ".*\.waitUntilReady"],
 \[".*\.getTileSourceImplementation", ".*\.waitUntilReady"],
+\[".*\.doOne\.success", ".*\.checkCompletion"],
+\[".*\.doOne\.error", ".*\.checkCompletion"],
+\[".*\.raiseAddItemFailed", ".*\.refreshWorld"],
 \])
 
 call AddLinks("Viewer", "Viewer", "callback", [
 \["scheduleZoom", "doZoom"],
 \["scheduleUpdate", "updateMulti"],
 \[".*\.waitUntilReady", ".*\.processReadyItems"],
+\[".*\.processReadyItems", ".*\.doOne\.success"],
+\[".*\.raiseAddItemFailed", ".*\.doOne\.error"],
 \])
 
 call AddLinks("Viewer", "Viewport", "return", [
@@ -248,13 +346,19 @@ call AddLinks("Viewer", "World", "return", [
 
 """
 " Calls from Viewport
-call AddLinks("Viewer", "legend", "return", [
-\[".*\.imageToViewportZoom", ".*\.imageToViewportZoom"],
+call AddLinks("Viewport", "TiledImage", "return", [
+\[".*\.imageToViewportRectangle", ".*\.imageToViewportRectangle"],
 \])
 
 """
 " Calls from World
 call AddLinks("World", "TiledImage", "return", [
+\[".*\.draw", ".*\.draw"],
+\[".*\.update", ".*\.update"],
+\[".*\.arrange", ".*\.setWidth"],
+\[".*\.arrange", ".*\.setPosition"],
+\[".*\.removeAll", ".*\.destroy"],
+\[".*\.removeItem", ".*\.destroy"],
 \[".*\.needsDraw", ".*\.needsDraw"],
 \[".*\._figureSizes", ".*\.getContentSize"],
 \])
