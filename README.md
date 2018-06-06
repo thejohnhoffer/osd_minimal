@@ -1,3 +1,9 @@
+Download
+
+```
+git clone --recurse-submodules git@github.com:thejohnhoffer/osd_minimal.git
+```
+
 Install
 
 ```
