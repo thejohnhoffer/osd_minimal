@@ -136,14 +136,14 @@ node280 [splines=ortho shape = "rect" style = "rounded" label = "TileCache" ];
 node263 [splines=ortho shape = "rect" style = "rounded" label = "TileRecord" ];
 node265 [splines=ortho shape = "rect" style = "rounded" label = "ImageRecord" ];
 node268 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "imagerecord.destroy" ];
-node270 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "imagerecord.getImage" ];
+node270 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tilecache.getImage" ];
 node272 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "imagerecord.getRenderedContext" ];
 node274 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "imagerecord.addTile" ];
 node276 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "imagerecord.removeTile" ];
 node278 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "imagerecord.getTileCount" ];
 node283 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tilecache.cacheTile" ];
 node285 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tilecache.clearTilesFor" ];
-node287 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "imagerecord.getImageRecord" ];
+node287 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tilecache.getImageRecord" ];
 node289 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "wheat" label = "tilecache._unloadTile" ];
 
 node295 [splines=ortho shape = "rect" style = "rounded" label = "TileSource" ];

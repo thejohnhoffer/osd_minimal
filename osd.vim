@@ -55,7 +55,6 @@ endfu
 %s/imageloader\.start/imagejob.start/
 %s/imageloader\.finish/imagejob.finish/
 %s/tilecache\.destroy/imagerecord.destroy/
-%s/tilecache\.getImage/imagerecord.getImage/
 %s/tilecache\.getRenderedContext/imagerecord.getRenderedContext/
 %s/tilecache\.addTile/imagerecord.addTile/
 %s/tilecache\.removeTile/imagerecord.removeTile/
