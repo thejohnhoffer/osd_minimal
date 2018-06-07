@@ -6,11 +6,11 @@ execute 'normal omclimit = ' .$mclimit
 normal ospines = "curved"
 normal orankdir = "LR"
 normal odpi = 55;
-%s/coral/wheat/
+%s/coral/white/
 
 " Highlight nodes
 fu! ColorNode(parent, node, color)
-  let l:find = '"rounded"\(.*"' . a:node .'"\)/'
+  let l:find = '"rounded.*\( label = "' . a:node .'"\)/'
   let l:style = ' "rounded,filled" fillcolor = "' . a:color . '"\1/'
   execute 'g/ "' . a:parent . '"// "' . a:node . '"/s/' l:find . l:style
 endfu
@@ -41,9 +41,14 @@ fu! AddLinks(f, t, a, pairs)
   \'return': ' [color="blue" penwidth="2"]',
   \'event': ' [color="red" penwidth="4"]'
   \}
-  let color = get(types, a:a, '')
   for i in a:pairs
-      let [l:from, l:to] = i
+      if len(i) == 3
+        let [l:from, l:to, l:t] = i
+        let color = get(types, l:t, '')
+      else
+        let [l:from, l:to] = i
+        let color = get(types, a:a, '')
+      endif
 
     call AddLink(color, a:f, a:t, l:from, l:to)
   endfor
@@ -55,6 +60,7 @@ endfu
 %s/tilecache\.destroy/imagerecord.destroy/
 %s/tilecache\.getRenderedContext/imagerecord.getRenderedContext/
 %s/tilecache\.addTile/imagerecord.addTile/
+%s/tilecache\.getImage/imagerecord.getImage/
 %s/tilecache\.removeTile/imagerecord.removeTile/
 %s/tilecache\.getTileCount/imagerecord.getTileCount/
 
@@ -92,7 +98,24 @@ g/node[0-9]*.* "spring\..*"/ call RmNode()
 
 """
 " Highlight nodes
-call ColorNode("TileSource", "setTileLoaded", "palegreen")
+call ColorNode("legend", "ImageRecord", "palegreen")
+call ColorNode("legend", "Tile", "palegreen")
+call ColorNode("Drawer", ".*\.drawTile", "palegreen")
+call ColorNode("Drawer", ".*\._clear", "khaki")
+call ColorNode("Drawer", ".*\.setClip", "salmon")
+call ColorNode("Drawer", ".*\._getContext", "salmon")
+call ColorNode("Drawer", ".*\.saveContext", "salmon")
+call ColorNode("Drawer", ".*\.restoreContext", "salmon")
+call ColorNode("ImageRecord", ".*\.getImage", "palegreen")
+call ColorNode("ImageRecord", ".*\.getRenderedContext", "salmon")
+call ColorNode("Tile", ".*\.drawCanvas", "salmon")
+call ColorNode("TileCache", ".*\.cacheTile", "palegreen")
+call ColorNode("TileCache", ".*\.getImageRecord", "palegreen")
+call ColorNode("TiledImage", "setTileLoaded", "palegreen")
+call ColorNode("TiledImage", "updateTile", "palegreen")
+call ColorNode("TiledImage", "onTileLoad", "palegreen")
+call ColorNode("TiledImage", "onTileLoad\.finish", "palegreen")
+call ColorNode("TiledImage", ".*\.completionCallback", "palegreen")
 
 """
 " Calls from Module
@@ -176,7 +199,7 @@ call AddLinks("ImageLoader", "ImageJob", "return", [
 """
 " Calls from TileCache
 call AddLinks("TileCache", "ImageRecord", "return", [
-\[".*\.cacheTile", ".*\.addTile"],
+\[".*\.cacheTile", ".*\.addTile", ""],
 \[".*\._unloadTile", ".*\.destroy"],
 \[".*\._unloadTile", ".*\.removeTile"],
 \[".*\._unloadTile", ".*\.getTileCount"],
@@ -194,13 +217,13 @@ call AddLinks("TiledImage", "legend", "return", [
 
 call AddLinks("TiledImage", "Drawer", "return", [
 \["drawTiles", ".*\.viewportToDrawerRectangle"],
-\["drawTiles", ".*\.restoreContext"],
-\["drawTiles", ".*\.saveContext"],
+\["drawTiles", ".*\.restoreContext", ""],
+\["drawTiles", ".*\.saveContext", ""],
 \["drawTiles", ".*\.getCanvasSize"],
-\["drawTiles", ".*\.blendSketch"],
-\["drawTiles", ".*\.drawTile"],
+\["drawTiles", ".*\.blendSketch", ""],
+\["drawTiles", ".*\.drawTile", ""],
 \["drawTiles", ".*\.setClip"],
-\["drawTiles", ".*\._clear"],
+\["drawTiles", ".*\._clear", ""],
 \])
 
 call AddLinks("TiledImage", "ImageLoader", "return", [
@@ -208,6 +231,7 @@ call AddLinks("TiledImage", "ImageLoader", "return", [
 \])
 
 call AddLinks("TiledImage", "ImageRecord", "return", [
+\["updateTile", ".*\.getImage"],
 \["getTile", ".*\.getImage"],
 \])
 
@@ -219,11 +243,11 @@ call AddLinks("TiledImage", "Tile", "return", [
 call AddLinks("TiledImage", "TileCache", "return", [
 \["updateTile", ".*\.getImageRecord"],
 \[".*\.reset", ".*\.clearTilesFor"],
-\[".*\.completionCallback", ".*\.cacheTile"],
+\[".*\.completionCallback", ".*\.cacheTile", ""],
 \])
 
 call AddLinks("TiledImage", "TiledImage", "return", [
-\["onTileLoad", ".*\.onTileLoad\.finish"],
+\["onTileLoad", ".*\.onTileLoad\.finish", ""],
 \["updateLevel", ".*\._getCornerTiles"],
 \[".*\._updateViewport", "drawTiles"],
 \["drawTiles", ".*\.viewportToImageZoom"],
