@@ -5,7 +5,7 @@ execute 'normal oranksep = ' . $ranksep
 execute 'normal omclimit = ' .$mclimit
 normal ospines = "curved"
 normal orankdir = "LR"
-normal odpi = 55;
+normal odpi = 30;
 %s/coral/white/
 
 " Highlight nodes

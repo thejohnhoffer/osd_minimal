@@ -4,7 +4,7 @@ ranksep = 1
 mclimit = 500
 spines = "curved"
 rankdir = "LR"
-dpi = 55;
+dpi = 30;
 concentrate = true;
 			subgraph legend{
 			rank = min;
