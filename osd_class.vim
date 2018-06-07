@@ -1,13 +1,3 @@
-" Custom settings
-normal gg
-execute 'normal oclusterrank = "' . $clusterrank . '"'
-execute 'normal oranksep = ' . $ranksep
-execute 'normal omclimit = ' .$mclimit
-normal ospines = "curved"
-normal orankdir = "LR"
-normal odpi = 55;
-%s/coral/wheat/
-
 " Remove nodes
 fu! RmNode()
   execute 'normal "ayw"'
@@ -50,6 +40,15 @@ fu! AddLinks(f, t, a, pairs)
     call AddLink(color, a:f, a:t, l:from, l:to, ports)
   endfor
 endfu
+
+" Custom settings
+normal gg
+normal oclusterrank = "global";
+normal omclimit = 1000;
+normal oranksep = 1;
+normal odpi = 55;
+%s/coral/wheat/
+%s/concentrate = true/concentrate = false/
 
 " Label ImageJob and ImageRecord
 %s/imageloader\.start/imagejob.start/

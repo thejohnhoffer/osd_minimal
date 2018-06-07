@@ -30,7 +30,13 @@ cd ../..
 Make `osd.gv` and `osd.svg`
 
 ```
-vim osd_src.gv '+:source osd.vim | w! osd.gv | w !dot -Tsvg > osd.svg' '+:q!'
+./osd.sh
+```
+
+Make `osd_class.gv` and `osd_class.svg`
+
+```
+./osd_class.sh
 ```
 
 If you install `entr`, you can run that command on each update:

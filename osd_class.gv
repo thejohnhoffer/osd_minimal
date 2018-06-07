@@ -1,6 +1,6 @@
 digraph G {
-clusterrank = "global"
-ranksep = 1
+clusterrank = "local"
+ranksep = 3
 mclimit = 10000
 spines = "curved"
 rankdir = "LR"
