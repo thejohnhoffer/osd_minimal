@@ -1,7 +1,7 @@
 digraph G {
 clusterrank = "global"
 ranksep = 1
-mclimit = 10000
+mclimit = 500
 spines = "curved"
 rankdir = "LR"
 dpi = 55;
@@ -67,7 +67,7 @@ node104 [splines=ortho shape = "rect" style = "rounded" label = "getTile" ];
 node106 [splines=ortho shape = "rect" style = "rounded" label = "loadTile" ];
 node110 [splines=ortho shape = "rect" style = "rounded" label = "onTileLoad" ];
 node109 [splines=ortho shape = "rect" style = "rounded" label = "onTileLoad.finish" ];
-node116 [splines=ortho shape = "rect" style = "rounded" label = "setTileLoaded" ];
+node116 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "palegreen" label = "setTileLoaded" ];
 node113 [splines=ortho shape = "rect" style = "rounded" label = "setTileLoaded.getCompletionCallback" ];
 node115 [splines=ortho shape = "rect" style = "rounded" label = "setTileLoaded.completionCallback" ];
 node118 [splines=ortho shape = "rect" style = "rounded" label = "positionTile" ];

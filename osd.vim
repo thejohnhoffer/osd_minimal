@@ -8,6 +8,13 @@ normal orankdir = "LR"
 normal odpi = 55;
 %s/coral/wheat/
 
+" Highlight nodes
+fu! ColorNode(parent, node, color)
+  let l:find = '"rounded"\(.*"' . a:node .'"\)/'
+  let l:style = ' "rounded,filled" fillcolor = "' . a:color . '"\1/'
+  execute 'g/ "' . a:parent . '"// "' . a:node . '"/s/' l:find . l:style
+endfu
+
 " Remove nodes
 fu! RmNode()
   execute 'normal "ayw"'
@@ -15,7 +22,7 @@ fu! RmNode()
 endfu
 
 " Add links between nodes
-fu! AddLink(color, from, to, from_word, to_word, port)
+fu! AddLink(color, from, to, from_word, to_word)
   let links = 'subgraph clusteropenseadragon.*/'
 
   " Link from word's node @s to word's node @t
@@ -23,7 +30,7 @@ fu! AddLink(color, from, to, from_word, to_word, port)
   execute 'g/ "' . a:to . '"//node.* "' . a:to_word . '"/ normal "tye'
 
   " Add links before first link
-  execute '%s/' . links . @f . a:port.f . ' -> ' . @t . a:port.t . a:color . ';\r\0/'
+  execute '%s/' . links . @f . ' -> ' . @t . a:color . ';\r\0/'
 endfu
 
 " Set link constants
@@ -36,18 +43,9 @@ fu! AddLinks(f, t, a, pairs)
   \}
   let color = get(types, a:a, '')
   for i in a:pairs
-    if len(i) == 2
-      let [port_f, port_t] = ["", ""]
       let [l:from, l:to] = i
-    elseif len(i) == 3
-      let port_t = ""
-      let [l:from, l:to, port_f] = i
-    elseif len(i) == 4
-      let [l:from, l:to, port_f, port_t] = i
-    endif
-    let ports = {"f": port_f, "t": port_t}
 
-    call AddLink(color, a:f, a:t, l:from, l:to, ports)
+    call AddLink(color, a:f, a:t, l:from, l:to)
   endfor
 endfu
 
@@ -91,6 +89,10 @@ g/node[0-9]*.* "rectangle\..*"/ call RmNode()
 g/node[0-9]*.* "Spring"/ call RmNode()
 g/node[0-9]*.* "transform"/ call RmNode()
 g/node[0-9]*.* "spring\..*"/ call RmNode()
+
+"""
+" Highlight nodes
+call ColorNode("TileSource", "setTileLoaded", "palegreen")
 
 """
 " Calls from Module
