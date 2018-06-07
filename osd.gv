@@ -59,12 +59,12 @@ node87 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white
 node89 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "tiledimage._updateForScale" ];
 node91 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "tiledimage._raiseBoundsChange" ];
 node93 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "tiledimage._getLevelsInterval" ];
-node96 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "tiledimage._updateViewport" ];
+node96 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "khaki" label = "tiledimage._updateViewport" ];
 node98 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "tiledimage._getCornerTiles" ];
 node100 [splines=ortho shape = "rect" style = "rounded" label = "updateLevel" ];
 node102 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "palegreen" label = "updateTile" ];
-node104 [splines=ortho shape = "rect" style = "rounded" label = "getTile" ];
-node106 [splines=ortho shape = "rect" style = "rounded" label = "loadTile" ];
+node104 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "khaki" label = "getTile" ];
+node106 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "palegreen" label = "loadTile" ];
 node110 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "palegreen" label = "onTileLoad" ];
 node109 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "palegreen" label = "onTileLoad.finish" ];
 node116 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "palegreen" label = "setTileLoaded" ];
@@ -77,7 +77,7 @@ node124 [splines=ortho shape = "rect" style = "rounded" label = "isCovered" ];
 node126 [splines=ortho shape = "rect" style = "rounded" label = "setCoverage" ];
 node128 [splines=ortho shape = "rect" style = "rounded" label = "resetCoverage" ];
 node130 [splines=ortho shape = "rect" style = "rounded" label = "compareTiles" ];
-node132 [splines=ortho shape = "rect" style = "rounded" label = "drawTiles" ];
+node132 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "salmon" label = "drawTiles" ];
 
 node143 [splines=ortho shape = "rect" style = "rounded" label = "Viewer" ];
 node146 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "viewer.isOpen" ];
@@ -135,7 +135,7 @@ node230 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "whit
 node280 [splines=ortho shape = "rect" style = "rounded" label = "TileCache" ];
 node263 [splines=ortho shape = "rect" style = "rounded" label = "TileRecord" ];
 node265 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "palegreen" label = "ImageRecord" ];
-node268 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "imagerecord.destroy" ];
+node268 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "palegreen" label = "imagerecord.destroy" ];
 node270 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "palegreen" label = "imagerecord.getImage" ];
 node272 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "salmon" label = "imagerecord.getRenderedContext" ];
 node274 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "imagerecord.addTile" ];
@@ -207,11 +207,11 @@ node422 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "whit
 node424 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "viewport.viewportToViewerElementRectangle" ];
 
 node430 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "palegreen" label = "Tile" ];
-node433 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "tile._hasTransparencyChannel" ];
+node433 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "salmon" label = "tile._hasTransparencyChannel" ];
 node435 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "salmon" label = "tile.drawCanvas" ];
-node437 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "tile.getScaleForEdgeSmoothing" ];
-node441 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "tile.getTranslationForEdgeSmoothing" ];
-node443 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "tile.unload" ];
+node437 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "khaki" label = "tile.getScaleForEdgeSmoothing" ];
+node441 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "khaki" label = "tile.getTranslationForEdgeSmoothing" ];
+node443 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "salmon" label = "tile.unload" ];
 
 node449 [splines=ortho shape = "rect" style = "rounded" label = "Drawer" ];
 node452 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "drawer.clear" ];
@@ -222,7 +222,7 @@ node460 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "salm
 node462 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "salmon" label = "drawer.saveContext" ];
 node464 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "salmon" label = "drawer.restoreContext" ];
 node466 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "salmon" label = "drawer.setClip" ];
-node468 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "drawer.blendSketch" ];
+node468 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "salmon" label = "drawer.blendSketch" ];
 node470 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "drawer.getCanvasSize" ];
 node472 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "drawer._calculateCanvasSize" ];
 node474 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "drawer._calculateSketchCanvasSize" ];
@@ -249,16 +249,16 @@ node474 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "whit
 
 
 node540 [splines=ortho shape = "rect" style = "rounded" label = "ImageLoader" ];
-node525 [splines=ortho shape = "rect" style = "rounded" label = "ImageJob" ];
-node536 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "imagejob.start" ];
+node525 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "palegreen" label = "ImageJob" ];
+node536 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "salmon" label = "imagejob.start" ];
 node529 [splines=ortho shape = "rect" style = "rounded" label = "imagejob.start.onload" ];
 node531 [splines=ortho shape = "rect" style = "rounded" label = "imagejob.start.onerror" ];
 node535 [splines=ortho shape = "rect" style = "rounded" label = "imagejob.start.abort" ];
-node538 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "imagejob.finish" ];
+node538 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "palegreen" label = "imagejob.finish" ];
 node546 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "imageloader.addJob" ];
 node544 [splines=ortho shape = "rect" style = "rounded" label = "imageloader.addJob.complete" ];
 node548 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "white" label = "imageloader.clear" ];
-node550 [splines=ortho shape = "rect" style = "rounded" label = "completeJob" ];
+node550 [splines=ortho shape = "rect" style = "rounded,filled" fillcolor = "palegreen" label = "completeJob" ];
 
 node61 -> node89;
 node63 -> node96 [color="blue" penwidth="2"];
@@ -424,11 +424,12 @@ node538 -> node544 [color="pink" penwidth="4"];
 node550 -> node536 [color="blue" penwidth="2"];
 node546 -> node536 [color="blue" penwidth="2"];
 node548 -> node535 [color="blue" penwidth="2"];
+node550 -> node110 [color="pink" penwidth="4"];
 node283 -> node274;
-node289 -> node268 [color="blue" penwidth="2"];
-node289 -> node276 [color="blue" penwidth="2"];
+node289 -> node268;
+node289 -> node276;
 node289 -> node278 [color="blue" penwidth="2"];
-node289 -> node443 [color="blue" penwidth="2"];
+node289 -> node443;
 node104 -> node430 [color="blue" penwidth="2"];
 node132 -> node456 [color="blue" penwidth="2"];
 node132 -> node464;

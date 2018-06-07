@@ -98,6 +98,7 @@ g/node[0-9]*.* "spring\..*"/ call RmNode()
 
 """
 " Highlight nodes
+call ColorNode("legend", "ImageJob", "palegreen")
 call ColorNode("legend", "ImageRecord", "palegreen")
 call ColorNode("legend", "Tile", "palegreen")
 call ColorNode("Drawer", ".*\.drawTile", "palegreen")
@@ -105,13 +106,26 @@ call ColorNode("Drawer", ".*\._clear", "khaki")
 call ColorNode("Drawer", ".*\.setClip", "salmon")
 call ColorNode("Drawer", ".*\._getContext", "salmon")
 call ColorNode("Drawer", ".*\.saveContext", "salmon")
+call ColorNode("Drawer", ".*\.blendSketch", "salmon")
 call ColorNode("Drawer", ".*\.restoreContext", "salmon")
+call ColorNode("ImageJob", ".*\.start", "salmon")
+call ColorNode("ImageJob", ".*\.finish", "palegreen")
+call ColorNode("ImageLoader", "completeJob", "palegreen")
+call ColorNode("ImageRecord", ".*\.destroy", "palegreen")
 call ColorNode("ImageRecord", ".*\.getImage", "palegreen")
 call ColorNode("ImageRecord", ".*\.getRenderedContext", "salmon")
+call ColorNode("Tile", ".*\.unload", "salmon")
 call ColorNode("Tile", ".*\.drawCanvas", "salmon")
+call ColorNode("Tile", ".*\._hasTransparencyChannel", "salmon")
+call ColorNode("Tile", ".*\.getTranslationForEdgeSmoothing", "khaki")
+call ColorNode("Tile", ".*\.getScaleForEdgeSmoothing", "khaki")
 call ColorNode("TileCache", ".*\.cacheTile", "palegreen")
 call ColorNode("TileCache", ".*\.getImageRecord", "palegreen")
+call ColorNode("TiledImage", ".*\._updateViewport", "khaki")
+call ColorNode("TiledImage", "loadTile", "palegreen")
 call ColorNode("TiledImage", "setTileLoaded", "palegreen")
+call ColorNode("TiledImage", "getTile", "khaki")
+call ColorNode("TiledImage", "drawTiles", "salmon")
 call ColorNode("TiledImage", "updateTile", "palegreen")
 call ColorNode("TiledImage", "onTileLoad", "palegreen")
 call ColorNode("TiledImage", "onTileLoad\.finish", "palegreen")
@@ -196,17 +210,21 @@ call AddLinks("ImageLoader", "ImageJob", "return", [
 \[".*\.clear", ".*\.abort"],
 \])
 
+call AddLinks("ImageLoader", "TiledImage", "callback", [
+\["completeJob", "onTileLoad"],
+\])
+
 """
 " Calls from TileCache
 call AddLinks("TileCache", "ImageRecord", "return", [
 \[".*\.cacheTile", ".*\.addTile", ""],
-\[".*\._unloadTile", ".*\.destroy"],
-\[".*\._unloadTile", ".*\.removeTile"],
+\[".*\._unloadTile", ".*\.destroy", ""],
+\[".*\._unloadTile", ".*\.removeTile", ""],
 \[".*\._unloadTile", ".*\.getTileCount"],
 \])
 
 call AddLinks("TileCache", "Tile", "return", [
-\[".*\._unloadTile", ".*\.unload"],
+\[".*\._unloadTile", ".*\.unload", ""],
 \])
 
 """
