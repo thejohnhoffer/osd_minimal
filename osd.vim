@@ -29,6 +29,8 @@ fu! AddLink(color, from, to, from_word, to_word)
   execute 'g/ "' . a:from . '"//node.* "' . a:from_word . '"/ normal "fye'
   execute 'g/ "' . a:to . '"//node.* "' . a:to_word . '"/ normal "tye'
 
+  " Remove duplicate link
+  execute '%s/.*' . @f . ' -> ' . @t . '.*//e'
   " Add links before first link
   execute '%s/' . links . @f . ' -> ' . @t . a:color . ';\r\0/'
 endfu
@@ -151,7 +153,7 @@ call AddLinks("legend", "Drawer", "return", [
 \])
 
 call AddLinks("legend", "Viewer", "return", [
-\["Viewer", ".*\.open"],
+\["Viewer", ".*\.open", ""],
 \])
 
 call AddLinks("legend", "Viewer", "callback", [
@@ -266,8 +268,10 @@ call AddLinks("TiledImage", "TileCache", "return", [
 
 call AddLinks("TiledImage", "TiledImage", "return", [
 \["onTileLoad", ".*\.onTileLoad\.finish", ""],
+\[".*\.draw", ".*\._updateViewport", ""],
 \["updateLevel", ".*\._getCornerTiles"],
-\[".*\._updateViewport", "drawTiles"],
+\[".*\._updateViewport", "drawTiles", ""],
+\[".*\._updateViewport", ".*\._setFullyLoaded", ""],
 \["drawTiles", ".*\.viewportToImageZoom"],
 \["drawTiles", ".*\.imageToViewportRectangle"],
 \["setTileLoaded", ".*\.getCompletionCallback"],
@@ -275,7 +279,6 @@ call AddLinks("TiledImage", "TiledImage", "return", [
 \])
 
 call AddLinks("TiledImage", "TiledImage", "callback", [
-\["onTileLoad", ".*\.onTileLoad\.finish"],
 \])
 
 call AddLinks("TiledImage", "TileSource", "return", [
@@ -331,11 +334,11 @@ call AddLinks("Viewer", "legend", "return", [
 \])
 
 call AddLinks("Viewer", "Drawer", "return", [
-\["drawWorld", ".*\.clear"],
+\["drawWorld", ".*\.clear", ""],
 \])
 
 call AddLinks("Viewer", "ImageLoader", "return", [
-\["drawWorld", ".*\.clear"],
+\["drawWorld", ".*\.clear", ""],
 \[".*\.close", ".*\.clear"],
 \])
 
@@ -346,11 +349,11 @@ call AddLinks("Viewer", "TileSource", "return", [
 
 call AddLinks("Viewer", "Viewer", "return", [
 \[".*\.open", ".*\.close"],
+\[".*\.open", ".*\.open", ""],
 \["updateMulti", ".*\.isOpen"],
-\[".*\.open", ".*\.open\.doOne"],
+\[".*\.open", ".*\.open\.doOne", ""],
 \[".*\.open\.doOne", ".*\.addTiledImage"],
-\[".*\.waitUntilReady", ".*\.waitUntilReady"],
-\[".*\.getTileSourceImplementation", ".*\.waitUntilReady"],
+\[".*\.getTileSourceImplementation", ".*\.waitUntilReady", ""],
 \[".*\.doOne\.success", ".*\.checkCompletion"],
 \[".*\.doOne\.error", ".*\.checkCompletion"],
 \[".*\.raiseAddItemFailed", ".*\.refreshWorld"],
@@ -374,7 +377,7 @@ call AddLinks("Viewer", "Viewport", "return", [
 \])
 
 call AddLinks("Viewer", "World", "return", [
-\["drawWorld", ".*\.draw"],
+\["drawWorld", ".*\.draw", ""],
 \["updateOnce", ".*\.update"],
 \["updateOnce", ".*\.needsDraw"],
 \[".*\.close", ".*\.removeAll"],
@@ -397,7 +400,7 @@ call AddLinks("Viewport", "TiledImage", "return", [
 """
 " Calls from World
 call AddLinks("World", "TiledImage", "return", [
-\[".*\.draw", ".*\.draw"],
+\[".*\.draw", ".*\.draw", ""],
 \[".*\.update", ".*\.update"],
 \[".*\.arrange", ".*\.setWidth"],
 \[".*\.arrange", ".*\.setPosition"],

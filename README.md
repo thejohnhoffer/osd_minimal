@@ -1,42 +1,42 @@
-Download
+## Clone with submodules
 
 ```
 git clone --recurse-submodules git@github.com:thejohnhoffer/osd_minimal.git
 ```
 
-Install
-
-```
-cd openseadragon
-grunt build
-cd ..
-```
+## Install submodules for graph
 
 ```
 cd code2flow
 sudo apt-get install graphviz
 sudo python setup.py install
-cd ..
+cd -
 ```
 
-Make graph for source or build
+## Install submodules for demo
 
 ```
-cd openseadragon/src
-code2flow *.js -o ../../osd_src.svg
-cd ../..
+cd osd
+grunt build
+cd -
 ```
 
-Make `osd.gv` and `osd.svg`
+## Make graphs for openseadragon
+
+```
+cd osd/src
+code2flow *.js -o $OLDPWD/osd_src.svg
+cd -
+
+cd osdgl/src
+code2flow *.js -o $OLDPWD/osdgl_src.svg
+cd -
+```
+
+Make `docs/*.svg`
 
 ```
 ./osd.sh
-```
-
-Make `osd_class.gv` and `osd_class.svg`
-
-```
-./osd_class.sh
 ```
 
 If you install `entr`, you can run that command on each update:

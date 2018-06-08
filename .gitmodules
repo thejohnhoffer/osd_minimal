@@ -1,6 +1,9 @@
 [submodule "openseadragon"]
-	path = openseadragon
+	path = osd
 	url = https://github.com/thejohnhoffer/openseadragon
 [submodule "code2flow"]
 	path = code2flow
 	url = https://github.com/thejohnhoffer/code2flow
+[submodule "osdgl"]
+	path = osdgl
+	url = https://github.com/thejohnhoffer/openseadragon
