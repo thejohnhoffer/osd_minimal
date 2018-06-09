@@ -21,16 +21,22 @@ fu! RmNode()
   execute '%s/.*' . @a  . '.*//'
 endfu
 
-" Add links between nodes
-fu! AddLink(color, from, to, from_word, to_word)
-  let links = 'subgraph clusteropenseadragon.*/'
-
-  " Link from word's node @s to word's node @t
+fu! RmLink(from, to, from_word, to_word)
+  " Link from word's node @f to word's node @t
   execute 'g/ "' . a:from . '"//node.* "' . a:from_word . '"/ normal "fye'
   execute 'g/ "' . a:to . '"//node.* "' . a:to_word . '"/ normal "tye'
 
   " Remove duplicate link
   execute '%s/.*' . @f . ' -> ' . @t . '.*//e'
+endfu
+
+" Add links between nodes
+fu! AddLink(color, from, to, from_word, to_word)
+  let links = 'subgraph clusteropenseadragon.*/'
+
+  " Remove duplicate link and yank to @f and @t
+  call RmLink(a:from, a:to, a:from_word, a:to_word)
+
   " Add links before first link
   execute '%s/' . links . @f . ' -> ' . @t . a:color . ';\r\0/'
 endfu
@@ -132,6 +138,10 @@ call ColorNode("TiledImage", "updateTile", "palegreen")
 call ColorNode("TiledImage", "onTileLoad", "palegreen")
 call ColorNode("TiledImage", "onTileLoad\.finish", "palegreen")
 call ColorNode("TiledImage", ".*\.completionCallback", "palegreen")
+
+"""
+" Remove calls
+call RmLink("legend", "Viewer", "Viewer", "scheduleUpdate")
 
 """
 " Calls from Module
