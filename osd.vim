@@ -226,7 +226,7 @@ call AddLinks("ImageLoader", "ImageJob", "return", [
 \])
 
 call AddLinks("ImageLoader", "TiledImage", "callback", [
-\["completeJob", "onTileLoad", ""],
+\["completeJob", "onTileLoad"],
 \])
 
 """
