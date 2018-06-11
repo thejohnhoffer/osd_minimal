@@ -295,9 +295,6 @@ call AddLinks("TiledImage", "TiledImage", "return", [
 \["setTileLoaded", ".completionCallback", ""],
 \])
 
-call AddLinks("TiledImage", "TiledImage", "callback", [
-\])
-
 call AddLinks("TiledImage", "TileSource", "return", [
 \["getTile", ".tileExists"],
 \["getTile", ".getTileUrl"],
@@ -380,10 +377,10 @@ call AddLinks("Viewer", "Viewer", "return", [
 
 call AddLinks("Viewer", "Viewer", "callback", [
 \["scheduleZoom", "doZoom"],
-\["scheduleUpdate", "updateMulti", ""],
+\["scheduleUpdate", "updateMulti"],
 \[".waitUntilReady", ".addTiledImage.processReadyItems"],
 \[".addTiledImage.processReadyItems", ".open.doOne.success"],
-\[".addTiledImage.raiseAddItemFailed", ".open.doOne.error", ""],
+\[".addTiledImage.raiseAddItemFailed", ".open.doOne.error"],
 \])
 
 call AddLinks("Viewer", "Viewport", "return", [
