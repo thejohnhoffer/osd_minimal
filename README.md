@@ -1,4 +1,4 @@
-## Basic Usage
+# Basic Usage
 
 ```
 git clone git@github.com:thejohnhoffer/osd_minimal.git
@@ -15,7 +15,7 @@ If you just modify `osd.vim` or `colors/custom.vim`, you can run this:
 It updates `docs/custom.svg` and `docs/custom_class.svg` based on the vimscripts.
 
 
-## Advanced Usage
+# Advanced Usage
 
 ```
 git clone --recurse-submodules git@github.com:thejohnhoffer/osd_minimal.git
