@@ -1,10 +1,33 @@
-## Clone with submodules
+## Basic Usage
+
+### Clone with submodules
 
 ```
 git clone --recurse-submodules git@github.com:thejohnhoffer/osd_minimal.git
 ```
 
-## Install submodules for graph
+### Update existing graph
+
+If you just modify `osd.vim` or `colors/custom.vim`, you can run this:
+
+```
+./osd.sh
+```
+
+It updates `docs/custom.svg` and `docs/custom_class.svg` based on the vimscripts.
+
+
+## Advanced Usage
+
+### Clone with submodules
+
+```
+git clone --recurse-submodules git@github.com:thejohnhoffer/osd_minimal.git
+```
+
+### Build graph from source
+
+Install code2flow to make `osd_src.gv`
 
 ```
 cd code2flow
@@ -13,25 +36,23 @@ sudo python setup.py install
 cd -
 ```
 
-## Install submodules for demo
-
-```
-cd osd
-npm i
-grunt build
-cd -
-```
-
-## Make graphs for openseadragon
-
 ```
 cd osd/src
 code2flow *.js -o $OLDPWD/osd_src.svg
 cd -
 ```
 
-Make `docs/*.svg`
+Make `docs/*.svg` files from `osd_src.gv`
 
 ```
 ./osd.sh
+```
+
+### Build OpenSeadragon for demo
+
+```
+cd osd
+npm i
+grunt build
+cd -
 ```
