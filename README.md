@@ -17,6 +17,7 @@ cd -
 
 ```
 cd osd
+npm i
 grunt build
 cd -
 ```
