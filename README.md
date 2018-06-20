@@ -28,20 +28,10 @@ cd -
 cd osd/src
 code2flow *.js -o $OLDPWD/osd_src.svg
 cd -
-
-cd osdgl/src
-code2flow *.js -o $OLDPWD/osdgl_src.svg
-cd -
 ```
 
 Make `docs/*.svg`
 
 ```
 ./osd.sh
-```
-
-If you install `entr`, you can run that command on each update:
-
-```
-echo ./osd.vim | entr ./osd.sh
 ```
