@@ -1,9 +1,7 @@
 ## Basic Usage
 
-### Clone with submodules
-
 ```
-git clone --recurse-submodules git@github.com:thejohnhoffer/osd_minimal.git
+git clone git@github.com:thejohnhoffer/osd_minimal.git
 ```
 
 ### Update existing graph
@@ -18,8 +16,6 @@ It updates `docs/custom.svg` and `docs/custom_class.svg` based on the vimscripts
 
 
 ## Advanced Usage
-
-### Clone with submodules
 
 ```
 git clone --recurse-submodules git@github.com:thejohnhoffer/osd_minimal.git
