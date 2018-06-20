@@ -7,9 +7,13 @@ normal ospines = "curved"
 normal orankdir = "LR"
 normal odpi = 30;
 
-fu! RmNode()
+fu! Rm()
   execute 'normal "ayw"'
   execute '%s/.*' . @a  . '.*//'
+endfu
+
+fu! RmNode(node)
+  execute 'g/node[0-9]*.* "' . a:node . '"/ call Rm()'
 endfu
 
 fu! RmLink(f, t, fw, tw)
@@ -63,36 +67,36 @@ endfu
 %s/tilecache\.getTileCount/imagerecord.getTileCount/
 
 " Remove import, and global helper nodes
-g/node[0-9]*.*(runs on import).*/ call RmNode()
-g/node[0-9]*.* "cancelAnimationFrame"/ call RmNode()
-g/node[0-9]*.* "requestAnimationFrame"/ call RmNode()
-g/node[0-9]*.* "getOffsetParent"/ call RmNode()
-g/node[0-9]*.* "isPlainObject"/ call RmNode()
-g/node[0-9]*.* "isFunction"/ call RmNode()
-g/node[0-9]*.* "isWindow"/ call RmNode()
-g/node[0-9]*.* "type"/ call RmNode()
-g/node[0-9]*.* "extend"/ call RmNode()
+call RmNode(".*(runs on import).*")
+call RmNode("cancelAnimationFrame")
+call RmNode("requestAnimationFrame")
+call RmNode("getOffsetParent")
+call RmNode("isPlainObject")
+call RmNode("isFunction")
+call RmNode("isWindow")
+call RmNode("type")
+call RmNode("extend")
 
 " Remove eventsource nodes
-g/node[0-9]*.* "EventSource"/ call RmNode()
-g/node[0-9]*.* "eventsource\..*"/ call RmNode()
+call RmNode("EventSource")
+call RmNode("eventsource\..*")
 
 " Remove point nodes
 %s/.*clusterpoint\_.\{-}}};//
-g/node[0-9]*.* "Point"/ call RmNode()
-g/node[0-9]*.* "point\..*"/ call RmNode()
+call RmNode("Point")
+call RmNode("point\..*")
 
 " Remove rectangle nodes
 %s/.*clusterrectangle\_.\{-}}}};//
-g/node[0-9]*.* "Rect"/ call RmNode()
-g/node[0-9]*.* "fromSummits"/ call RmNode()
-g/node[0-9]*.* "rectangle\..*"/ call RmNode()
+call RmNode("Rect")
+call RmNode("fromSummits")
+call RmNode("rectangle\..*")
 
 " Remove spring nodes
 %s/.*clusterspring\_.\{-}}};//
-g/node[0-9]*.* "Spring"/ call RmNode()
-g/node[0-9]*.* "transform"/ call RmNode()
-g/node[0-9]*.* "spring\..*"/ call RmNode()
+call RmNode("Spring")
+call RmNode("transform")
+call RmNode("spring\..*")
 
 """
 " Highlight nodes
