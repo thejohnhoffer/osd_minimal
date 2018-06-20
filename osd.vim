@@ -7,52 +7,48 @@ normal ospines = "curved"
 normal orankdir = "LR"
 normal odpi = 30;
 
-" Remove nodes
 fu! RmNode()
   execute 'normal "ayw"'
   execute '%s/.*' . @a  . '.*//'
 endfu
 
-fu! RmLink(from, to, fw, tw)
+fu! RmLink(f, t, fw, tw)
   " Link from word's node @f to word's node @t
-  execute 'g/ "' . a:from . '"//node.* "' . a:fw . '"/ normal "fye'
-  execute 'g/ "' . a:to . '"//node.* "' . a:tw . '"/ normal "tye'
+  execute 'g/ "' . a:f . '"//node.* "' . a:fw . '"/ normal "fye'
+  execute 'g/ "' . a:t . '"//node.* "' . a:tw . '"/ normal "tye'
 
   " Remove duplicate link
   execute '%s/.*' . @f . ' -> ' . @t . '.*//e'
 endfu
 
-" Add links between nodes
-fu! AddLink(color, from, to, from_word, to_word)
-  let l:fw = substitute(a:from_word, '\.', '[^.]*.', '')
-  let l:tw = substitute(a:to_word, '\.', '[^.]*.', '')
+fu! AddLink(a, f, t, fw, tw)
+  let l:fw = substitute(a:fw, '\.', '[^.]*.', '')
+  let l:tw = substitute(a:tw, '\.', '[^.]*.', '')
   let links = 'subgraph clusteropenseadragon.*/'
-
-  " Remove duplicate link and yank to @f and @t
-  call RmLink(a:from, a:to, l:fw, l:tw)
-
-  " Add links before first link
-  execute '%s/' . links . @f . ' -> ' . @t . a:color . ';\r\0/'
-endfu
-
-" Set link constants
-fu! AddLinks(f, t, a, pairs)
   " Styles for function types
   let types = {
   \'callback': ' [color="pink" penwidth="4"]',
   \'return': ' [color="blue" penwidth="2"]',
   \'event': ' [color="red" penwidth="4"]'
   \}
+  let color = get(types, a:a, '')
+
+  " Remove duplicate link and yank to @f and @t
+  call RmLink(a:f, a:t, l:fw, l:tw)
+
+  " Add links before first link
+  execute '%s/' . links . @f . ' -> ' . @t . color . ';\r\0/'
+endfu
+
+fu! AddLinks(a, f, t, pairs)
   for i in a:pairs
       if len(i) == 3
-        let [l:from, l:to, l:t] = i
-        let color = get(types, l:t, '')
+        let [l:fw, l:tw, l:a] = i
+    	call AddLink(l:a, a:f, a:t, l:fw, l:tw)
       else
-        let [l:from, l:to] = i
-        let color = get(types, a:a, '')
+        let [l:fw, l:tw] = i
+    	call AddLink(a:a, a:f, a:t, l:fw, l:tw)
       endif
-
-    call AddLink(color, a:f, a:t, l:from, l:to)
   endfor
 endfu
 
@@ -108,7 +104,7 @@ call RmLink("legend", "Viewer", "Viewer", "scheduleUpdate")
 
 """
 " Calls from Module
-call AddLinks("legend", "legend", "return", [
+call AddLinks("return", "legend", "legend", [
 \["OpenSeadragon", "Viewer"],
 \["Viewer", "ImageLoader"],
 \["Viewer", "TileCache"],
@@ -117,27 +113,27 @@ call AddLinks("legend", "legend", "return", [
 \["Viewer", "World"],
 \])
 
-call AddLinks("legend", "TileSource", "return", [
+call AddLinks("return", "legend", "TileSource", [
 \["TileSource", ".getImageInfo", ""],
 \])
 
-call AddLinks("legend", "Drawer", "return", [
+call AddLinks("return", "legend", "Drawer", [
 \["Drawer", "._calculateCanvasSize"],
 \])
 
-call AddLinks("legend", "Viewer", "return", [
+call AddLinks("return", "legend", "Viewer", [
 \["Viewer", ".open", ""],
 \])
 
-call AddLinks("legend", "Viewer", "callback", [
+call AddLinks("callback", "legend", "Viewer", [
 \["TileSource", ".addTiledImage.processReadyItems"],
 \])
 
-call AddLinks("legend", "Viewport", "return", [
+call AddLinks("return", "legend", "Viewport", [
 \["Viewer", "._setContentBounds", ""],
 \])
 
-call AddLinks("legend", "World", "return", [
+call AddLinks("return", "legend", "World", [
 \["Viewer", ".getHomeBounds"],
 \["Viewer", ".getContentFactor"],
 \["World", "._figureSizes", ""],
@@ -145,70 +141,70 @@ call AddLinks("legend", "World", "return", [
 
 """
 " Calls from Drawer
-call AddLinks("Drawer", "Tile", "return", [
+call AddLinks("return", "Drawer", "Tile", [
 \[".drawTile", ".drawCanvas"],
 \])
 
-call AddLinks("Drawer", "Viewport", "return", [
+call AddLinks("return", "Drawer", "Viewport", [
 \["._calculateCanvasSize", ".getContainerSize"],
 \])
 
 """
 " Calls from Tile
-call AddLinks("Tile", "ImageRecord", "return", [
+call AddLinks("return", "Tile", "ImageRecord", [
 \[".drawCanvas", ".getRenderedContext"],
 \[".getScaleForEdgeSmoothing", ".getRenderedContext"],
 \])
 
 """
 " Calls from ImageJob
-call AddLinks("ImageJob", "ImageJob", "callback", [
+call AddLinks("callback", "ImageJob", "ImageJob", [
 \["*.start", ".start.onerror"],
 \["*.start", ".start.onload"],
 \])
 
-call AddLinks("ImageJob", "ImageJob", "return", [
+call AddLinks("return", "ImageJob", "ImageJob", [
 \[".start.onerror", ".finish", ""],
 \[".start.onload", ".finish", ""],
 \[".start.abort", ".start.abort", ""],
 \])
 
-call AddLinks("ImageJob", "ImageLoader", "callback", [
+call AddLinks("callback", "ImageJob", "ImageLoader", [
 \["*.finish", ".addJob.complete"],
 \])
 
 """
 " Calls from ImageLoader
-call AddLinks("ImageLoader", "ImageJob", "return", [
+call AddLinks("return", "ImageLoader", "ImageJob", [
 \["completeJob", ".start", ""],
 \[".addJob", ".start", ""],
 \[".clear", ".start.abort", ""],
 \])
 
-call AddLinks("ImageLoader", "TiledImage", "callback", [
+call AddLinks("callback", "ImageLoader", "TiledImage", [
 \["completeJob", "onTileLoad"],
 \])
 
 """
 " Calls from TileCache
-call AddLinks("TileCache", "ImageRecord", "return", [
+call AddLinks("return", "TileCache", "ImageRecord", [
 \[".cacheTile", ".addTile", ""],
 \["._unloadTile", ".destroy", ""],
 \["._unloadTile", ".removeTile", ""],
 \["._unloadTile", ".getTileCount"],
 \])
 
-call AddLinks("TileCache", "Tile", "return", [
+call AddLinks("return", "TileCache", "Tile", [
 \["._unloadTile", ".unload", ""],
 \])
 
 """
 " Calls from TiledImage
-call AddLinks("TiledImage", "legend", "return", [
+call AddLinks("return", "TiledImage", "legend", [
 \["getTile", "Tile"],
 \])
 
-call AddLinks("TiledImage", "Drawer", "return", [
+call AddLinks("return", "TiledImage", "Drawer", [
 \["drawTiles", ".viewportToDrawerRectangle"],
 \["drawTiles", ".restoreContext", ""],
 \["drawTiles", ".saveContext", ""],
@@ -219,27 +215,27 @@ call AddLinks("TiledImage", "Drawer", "return", [
 \["drawTiles", "._clear", ""],
 \])
 
-call AddLinks("TiledImage", "ImageLoader", "return", [
+call AddLinks("return", "TiledImage", "ImageLoader", [
 \["loadTile", ".addJob", ""],
 \])
 
-call AddLinks("TiledImage", "ImageRecord", "return", [
+call AddLinks("return", "TiledImage", "ImageRecord", [
 \["updateTile", ".getImage"],
 \["getTile", ".getImage"],
 \])
 
-call AddLinks("TiledImage", "Tile", "return", [
+call AddLinks("return", "TiledImage", "Tile", [
 \["drawTiles", ".getTranslationForEdgeSmoothing"],
 \["drawTiles", ".getScaleForEdgeSmoothing"],
 \])
 
-call AddLinks("TiledImage", "TileCache", "return", [
+call AddLinks("return", "TiledImage", "TileCache", [
 \["updateTile", ".getImageRecord"],
 \[".reset", ".clearTilesFor", ""],
 \[".completionCallback", ".cacheTile", ""],
 \])
 
-call AddLinks("TiledImage", "TiledImage", "return", [
+call AddLinks("return", "TiledImage", "TiledImage", [
 \[".setWidth", "._setScale", ""],
 \["onTileLoad", ".onTileLoad.finish", ""],
 \["loadTile", "onTileLoad", ""],
@@ -255,7 +251,7 @@ call AddLinks("TiledImage", "TiledImage", "return", [
 \["setTileLoaded", ".completionCallback", ""],
 \])
 
-call AddLinks("TiledImage", "TileSource", "return", [
+call AddLinks("return", "TiledImage", "TileSource", [
 \["getTile", ".tileExists"],
 \["getTile", ".getTileUrl"],
 \["getTile", ".getTileBounds"],
@@ -268,7 +264,7 @@ call AddLinks("TiledImage", "TileSource", "return", [
 \["._updateViewport", ".getPixelRatio"],
 \])
 
-call AddLinks("TiledImage", "Viewport", "return", [
+call AddLinks("return", "TiledImage", "Viewport", [
 \["drawTiles", ".viewportToViewerElementRectangle"],
 \["positionTile", ".deltaPixelsFromPoints"],
 \["._getLevelsInterval", ".deltaPixelsFromPoints"],
@@ -276,14 +272,14 @@ call AddLinks("TiledImage", "Viewport", "return", [
 \["._updateViewport", ".getBoundsWithMargins"],
 \])
 
-call AddLinks("TiledImage", "World", "event", [
+call AddLinks("event", "TiledImage", "World", [
 \[".setClip", "._delegatedFigureSizes"],
 \["._raiseBoundsChange", "._delegatedFigureSizes"],
 \])
 
 """
 " Calls from TileSource
-call AddLinks("TileSource", "TileSource", "return", [
+call AddLinks("return", "TileSource", "TileSource", [
 \[".getNumTiles", ".getLevelScale"],
 \[".getPixelRatio", ".getLevelScale"],
 \[".getTileAtPoint", ".getLevelScale"],
@@ -291,37 +287,37 @@ call AddLinks("TileSource", "TileSource", "return", [
 \["determineType", ".supports"],
 \])
 
-call AddLinks("TileSource", "TileSource", "callback", [
+call AddLinks("callback", "TileSource", "TileSource", [
 \[".getImageInfo", ".getImageInfo.callback"],
 \])
 
-call AddLinks("TileSource", "Viewer", "event", [
+call AddLinks("event", "TileSource", "Viewer", [
 \[".getImageInfo.callback", ".addTiledImage.processReadyItems"],
 \[".getImageInfo.callback", ".addTiledImage.raiseAddItemFailed"],
 \])
 
 """
 " Calls from Viewer
-call AddLinks("Viewer", "legend", "return", [
+call AddLinks("return", "Viewer", "legend", [
 \[".addTiledImage.processReadyItems", "TiledImage"],
 \["getTileSourceImplementation", "TileSource"],
 \])
 
-call AddLinks("Viewer", "Drawer", "return", [
+call AddLinks("return", "Viewer", "Drawer", [
 \["drawWorld", ".clear", ""],
 \])
 
-call AddLinks("Viewer", "ImageLoader", "return", [
+call AddLinks("return", "Viewer", "ImageLoader", [
 \["drawWorld", ".clear", ""],
 \[".close", ".clear", ""],
 \])
 
-call AddLinks("Viewer", "TileSource", "return", [
+call AddLinks("return", "Viewer", "TileSource", [
 \["getTileSourceImplementation", ".configure"],
 \["getTileSourceImplementation", ".determineType"],
 \])
 
-call AddLinks("Viewer", "Viewer", "return", [
+call AddLinks("return", "Viewer", "Viewer", [
 \[".open", ".close", ""],
 \[".open", ".open", ""],
 \["updateMulti", ".isOpen"],
@@ -335,7 +331,7 @@ call AddLinks("Viewer", "Viewer", "return", [
 \[".addTiledImage.raiseAddItemFailed", ".addTiledImage.refreshWorld", ""],
 \])
 
-call AddLinks("Viewer", "Viewer", "callback", [
+call AddLinks("callback", "Viewer", "Viewer", [
 \["scheduleZoom", "doZoom"],
 \["scheduleUpdate", "updateMulti"],
 \[".waitUntilReady", ".addTiledImage.processReadyItems"],
@@ -343,7 +339,7 @@ call AddLinks("Viewer", "Viewer", "callback", [
 \[".addTiledImage.raiseAddItemFailed", ".open.doOne.error"],
 \])
 
-call AddLinks("Viewer", "Viewport", "return", [
+call AddLinks("return", "Viewer", "Viewport", [
 \[".addTiledImage.processReadyItems", ".goHome", ""],
 \[".open.checkCompletion", ".goHome", ""],
 \[".open.checkCompletion", ".update", ""],
@@ -352,7 +348,7 @@ call AddLinks("Viewer", "Viewport", "return", [
 \["doZoom", ".zoomBy", ""],
 \])
 
-call AddLinks("Viewer", "World", "return", [
+call AddLinks("return", "Viewer", "World", [
 \["drawWorld", ".draw", ""],
 \["updateOnce", ".update"],
 \["updateOnce", ".needsDraw"],
@@ -368,14 +364,14 @@ call AddLinks("Viewer", "World", "return", [
 
 """
 " Calls from Viewport
-call AddLinks("Viewport", "Viewport", "return", [
+call AddLinks("return", "Viewport", "Viewport", [
 \[".applyConstraints", ".zoomTo", ""],
 \[".applyConstraints", ".fitBounds", ""],
 \])
 
 """
 " Calls from World
-call AddLinks("World", "TiledImage", "return", [
+call AddLinks("return", "World", "TiledImage", [
 \[".draw", ".draw", ""],
 \[".update", ".update"],
 \[".arrange", ".setWidth", ""],
@@ -386,23 +382,23 @@ call AddLinks("World", "TiledImage", "return", [
 \["._figureSizes", ".getContentSize"],
 \])
 
-call AddLinks("World", "Viewer", "return", [
+call AddLinks("return", "World", "Viewer", [
 \[".removeAll", "._cancelPendingImages", ""],
 \])
 
-call AddLinks("World", "Viewer", "event", [
+call AddLinks("event", "World", "Viewer", [
 \[".*addItem", "scheduleUpdate"],
 \])
 
-call AddLinks("World", "Viewport", "event", [
+call AddLinks("event", "World", "Viewport", [
 \["._figureSizes", "._setContentBounds"],
 \])
 
-call AddLinks("World", "World", "return", [
+call AddLinks("return", "World", "World", [
 \["._delegatedFigureSizes", "._figureSizes", ""],
 \])
 
-call AddLinks("World", "World", "event", [
+call AddLinks("event", "World", "World", [
 \["._figureSizes", ".getHomeBounds"],
 \["._figureSizes", ".getContentFactor"],
 \["._raiseRemoveItem", ".getItemCount"],
