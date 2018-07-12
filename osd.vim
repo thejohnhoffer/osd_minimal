@@ -225,7 +225,6 @@ call AddLinks("return", "TiledImage", "ImageLoader", [
 
 call AddLinks("return", "TiledImage", "ImageRecord", [
 \["updateTile", ".getImage"],
-\["getTile", ".getImage"],
 \])
 
 call AddLinks("return", "TiledImage", "Tile", [
